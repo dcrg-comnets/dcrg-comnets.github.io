@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#FFF5FD; --bg-rgb:255,245,253;
+      --ink:#022E57; --ink-rgb:2,46,87;
+      --blue:#005A8D; --blue-rgb:0,90,141;
+      --pink:#FF96AD; --pink-rgb:255,150,173;
+      --band:color-mix(in srgb, var(--blue) 9%, var(--bg));
+      --muted:color-mix(in srgb, var(--ink) 66%, var(--bg));
+      --hover:color-mix(in srgb, var(--blue) 7%, var(--bg));
+      --media-radius:10px;
+      --media-shadow:0 18px 50px -22px rgba(var(--ink-rgb),0.55);
+      --media-border:1px solid rgba(var(--ink-rgb),0.14);
+      --gallery-min:320px;
+      --sec-y:clamp(48px,7vw,90px);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;zoom:1.2;overflow-x:hidden;}
+    body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    ::selection{background:var(--blue);color:var(--bg);}
+    a{color:inherit;text-decoration:none;}
+  </style>
+  <script src="image-slot.js"></script>
+  <script src="publications.js"></script>
+</helmet>
+
+<header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(var(--bg-rgb),0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(var(--ink-rgb),0.08);">
+  <a href="index.html#top" style="display:flex;align-items:center;gap:14px;">
+    <img src="assets/logo-dark.svg" alt="DCRG" style="height:42px;width:auto;display:block;">
+  </a>
+  <a href="index.html#demos" style="font-size:15px;font-weight:600;color:var(--blue);transition:color .2s;" style-hover="color:var(--ink)">← Back to all demonstrators</a>
+</header>
+
+<section style="padding:var(--sec-y) 40px;">
+  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:clamp(36px,5vw,72px);align-items:center;">
+
+    <div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);">Demonstrator {{ num }}</div>
+      <h1 style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(32px,4.4vw,56px);line-height:1.05;letter-spacing:-0.02em;">{{ title }}</h1>
+      <p style="margin-top:24px;font-size:clamp(16px,1.6vw,19px);line-height:1.62;color:var(--muted);max-width:54ch;">{{ body1 }}</p>
+      <p style="margin-top:16px;font-size:clamp(16px,1.6vw,19px);line-height:1.62;color:var(--muted);max-width:54ch;">{{ body2 }}</p>
+      <a href="index.html#demos" style="margin-top:30px;display:inline-flex;align-items:center;gap:9px;padding:13px 24px;background:var(--ink);color:var(--bg);border-radius:2px;font-weight:600;font-size:15px;transition:background .2s;" style-hover="background:var(--blue)">↩ All demonstrators</a>
+    </div>
+
+    <div>
+      <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--media-radius);overflow:hidden;border:var(--media-border);background:var(--ink);box-shadow:var(--media-shadow);">
+        <sc-if value="{{ hasVideo }}">
+          <video data-hero-video autoplay="" loop="" muted="" playsinline="" controls="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
+        </sc-if>
+        <sc-if value="{{ noVideo }}" hint-placeholder-val="{{ true }}">
+          <image-slot id="{{ posterId }}" shape="rect" placeholder="{{ posterPlaceholder }}" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></image-slot>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+            <div style="width:74px;height:74px;border-radius:50%;background:rgba(var(--pink-rgb),0.92);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px -6px rgba(var(--ink-rgb),0.6);">
+              <div style="width:0;height:0;border-style:solid;border-width:13px 0 13px 22px;border-color:transparent transparent transparent var(--ink);margin-left:5px;"></div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+      <p style="margin-top:14px;font-size:14px;color:var(--muted);">{{ videoCaption }}</p>
+    </div>
+
+  </div>
+</section>
+
+<sc-if value="{{ hasLong }}">
+  <section style="padding:var(--sec-y) 40px;">
+    <div style="max-width:1000px;margin:0 auto;">
+      <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--blue);font-size:15px;letter-spacing:0.08em;">→</span>
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(26px,3.2vw,40px);letter-spacing:-0.02em;">About this demonstration</h2>
+      </div>
+      <div style="margin-top:26px;display:grid;gap:18px;max-width:74ch;">
+        <sc-for list="{{ longParas }}" as="para" hint-placeholder-count="3">
+          <p style="font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:var(--ink);">{{ para }}</p>
+        </sc-for>
+      </div>
+      <sc-if value="{{ hasGallery }}">
+        <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(var(--gallery-min),1fr));gap:24px;">
+          <sc-for list="{{ gallery }}" as="shot" hint-placeholder-count="0">
+            <figure style="margin:0;">
+              <div style="aspect-ratio:16/10;border-radius:var(--media-radius);border:var(--media-border);background-color:var(--band);background-image:url({{ shot.src }});background-size:contain;background-position:center;background-repeat:no-repeat;box-shadow:var(--media-shadow);"></div>
+              <figcaption style="margin-top:10px;font-size:14px;line-height:1.5;color:var(--muted);">{{ shot.caption }}</figcaption>
+            </figure>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+</sc-if>
+
+<section style="padding:var(--sec-y) 40px;background:var(--band);border-top:1px solid rgba(var(--ink-rgb),0.08);">
+  <div style="max-width:1000px;margin:0 auto;">
+    <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;">
+      <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--blue);font-size:15px;letter-spacing:0.08em;">★</span>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(28px,3.4vw,42px);letter-spacing:-0.02em;">{{ pubHeading }}</h2>
+    </div>
+    <p style="margin-top:16px;max-width:60ch;font-size:17px;line-height:1.6;color:var(--muted);">{{ pubSubtitle }}</p>
+
+    <div style="margin-top:42px;">
+      <sc-for list="{{ pubs }}" as="pub" hint-placeholder-count="6">
+        <div style="display:flex;gap:24px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.12);flex-wrap:wrap;">
+          <span style="min-width:54px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--blue);padding-top:2px;">{{ pub.year }}</span>
+          <div style="flex:1;min-width:260px;">
+            <sc-if value="{{ pub.hasUrl }}" hint-placeholder-val="{{ true }}">
+              <a href="{{ pub.url }}" target="_blank" rel="noopener" style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);transition:color .2s;" style-hover="color:var(--blue)">{{ pub.title }}</a>
+            </sc-if>
+            <sc-if value="{{ pub.noUrl }}">
+              <span style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">{{ pub.title }}</span>
+            </sc-if>
+            <div style="margin-top:5px;font-size:14px;line-height:1.5;color:var(--muted);">{{ pub.authors }}</div>
+            <sc-if value="{{ pub.bookChapter }}">
+              <div style="margin-top:6px;font-size:13px;line-height:1.45;color:var(--muted);font-style:italic;">{{ pub.chapterLine }}</div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--ink);color:var(--bg);padding:48px 40px;">
+  <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center;">
+    <img src="./2025_dcrg_logo_white-mqw7fukt.png" alt="DCRG" style="height: 77px; width: 127px; display: block; opacity: 0.95">
+    <a href="index.html#top" style="font-size:14px;color:rgba(var(--bg-rgb),0.75);transition:color .2s;" style-hover="color:var(--pink)">DCRG · TU Dresden — back to home →</a>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:800},&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Navy &amp; Coral&quot;,&quot;Forest &amp; Amber&quot;,&quot;Charcoal Mono&quot;],&quot;default&quot;:&quot;Navy &amp; Coral&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Feel&quot;},&quot;mediaStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Cinematic&quot;,&quot;Document&quot;,&quot;Editorial&quot;],&quot;default&quot;:&quot;Cinematic&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Feel&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Spacious&quot;,&quot;Balanced&quot;,&quot;Compact&quot;],&quot;default&quot;:&quot;Compact&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Feel&quot;}}">
+class Component extends DCLogic {
+  syncVideo() {
+    const v = document.querySelector('[data-hero-video]');
+    if (v && this._videoSrc && !v.getAttribute('src')) { v.setAttribute('src', this._videoSrc); }
+  }
+
+  hexToRgb(hex) {
+    const h = (hex || '').replace('#', '').trim();
+    if (h.length !== 6) return null;
+    const n = parseInt(h, 16);
+    return ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255);
+  }
+
+  applyStyle() {
+    const root = document.documentElement;
+    const setC = (name, hex) => {
+      root.style.setProperty('--' + name, hex);
+      const rgb = this.hexToRgb(hex);
+      if (rgb) root.style.setProperty('--' + name + '-rgb', rgb);
+    };
+    const PALETTES = {
+      'Navy & Coral': { bg: '#FFF5FD', ink: '#022E57', blue: '#005A8D', pink: '#FF96AD' },
+      'Forest & Amber': { bg: '#F6FBF4', ink: '#10362A', blue: '#1F7A52', pink: '#E8A33D' },
+      'Charcoal Mono': { bg: '#F3F4F6', ink: '#191C22', blue: '#3F4A5A', pink: '#D9603B' }
+    };
+    const pal = PALETTES[this.props.palette] || PALETTES['Navy & Coral'];
+    setC('bg', pal.bg); setC('ink', pal.ink); setC('blue', pal.blue); setC('pink', pal.pink);
+
+    const MEDIA = {
+      Cinematic: { radius: '12px', shadow: '0 26px 64px -26px rgba(var(--ink-rgb),0.62)', border: '1px solid rgba(var(--ink-rgb),0.12)' },
+      Document: { radius: '2px', shadow: 'none', border: '1px solid rgba(var(--ink-rgb),0.24)' },
+      Editorial: { radius: '0px', shadow: 'none', border: '0', accent: true }
+    };
+    const med = MEDIA[this.props.mediaStyle] || MEDIA.Cinematic;
+    root.style.setProperty('--media-radius', med.radius);
+    root.style.setProperty('--media-shadow', med.shadow);
+    root.style.setProperty('--media-border', med.accent ? 'none' : med.border);
+
+    const DENSITY = { Spacious: 'clamp(64px,8vw,120px)', Balanced: 'clamp(48px,7vw,90px)', Compact: 'clamp(30px,4vw,52px)' };
+    root.style.setProperty('--sec-y', DENSITY[this.props.density] || DENSITY.Balanced);
+  }
+
+  componentDidUpdate(prev) {
+    this.syncVideo();
+    if (!prev) return;
+    if (prev.palette !== this.props.palette || prev.mediaStyle !== this.props.mediaStyle || prev.density !== this.props.density) {
+      this.applyStyle();
+    }
+  }
+
+  componentDidMount() {
+    this.applyStyle();
+    this.syncVideo();
+    if (!(window.DCRG_PUBLICATIONS && window.DCRG_PUBLICATIONS.length)) {
+      let n = 0;
+      const t = setInterval(() => {
+        n++;
+        if ((window.DCRG_PUBLICATIONS && window.DCRG_PUBLICATIONS.length) || n > 25) {
+          clearInterval(t);
+          this.forceUpdate();
+        }
+      }, 100);
+    }
+  }
+
+  renderVals() {
+    const DATA = {
+      kinematic: { num: '01', title: '2-Axis Kinematic System', body: [
+        'A compact motion-control demonstrator used to study deterministic communication, synchronization, and real-time control behavior in future industrial networks.',
+        'It provides a controlled, repeatable setting for measuring how timing guarantees translate into precise mechanical motion across a network.'
+      ] },
+      pendulum: { num: '03', title: 'Reliable Edge Control over 5G–TSN: Demonstrating End-to-End Prioritization with Inverted Pendulums', body: [
+        'An integrated 5G–TSN demonstrator that delivers end-to-end traffic prioritization across both the wireless and wired domains, validated on a hard real-time control task — balancing inverted pendulums over the network.',
+        'Two pendulums are stabilized by LQR controllers on an edge server: one on a fully prioritized slice, the other sharing a slice with best-effort traffic. Under heavy cross-traffic, the prioritized pendulum stays stable while the unprioritized one fails.'
+      ] },
+      agv: { num: '05', title: 'Remote AGV', body: [
+        'Remotely controlling an automated guided vehicle across DECT NR, Wi-Fi, and 5G at the same time — studying deterministic, low-latency wireless control for mobile industrial robots.',
+        'Running the same control loop over three radio technologies lets us compare them head-to-head and explore seamless link selection and handover as the vehicle moves.'
+      ] },
+      reliability: { num: '04', title: 'End-to-End Reliability with Application Twin and TSN', body: [
+        'A reliability-focused demonstrator combining an application twin with TSN-based communication to evaluate predictable, resilient, and end-to-end reliable service for cyber-physical applications.',
+        'The application twin mirrors the live system so reliability can be observed, predicted, and protected across the full path.'
+      ] },
+      semantic: { num: '02', title: 'Semantic Prioritization Demo', body: [
+        'An interactive factory-floor demonstrator showing how communication and computation resources can be prioritized based on semantic importance, urgency, and application context.',
+        'Rather than treating every packet equally, the demo routes attention to the information that matters most, when it matters most.'
+      ] },
+      'negative-latency': { num: '06', title: 'Parallel Future Evaluation: Unified Networking & Computation', body: [
+        'An application-twin-based demonstrator that predicts possible future situations, evaluates multiple action paths in parallel, and prepares the network or application response before the real event happens.',
+        'By acting on anticipated futures, the system can mask round-trip delay and respond as if latency were negative.'
+      ] }
+    };
+    const LONG = {
+      pendulum: {
+        paras: [
+          'Industrial closed-loop control needs ultra-reliable, low-latency communication across both fixed and mobile networks. Combining Time-Sensitive Networking (TSN) with 5G is a promising path, but coordinating prioritization consistently across two very different networks is hard. This demonstrator shows an integrated 5G–TSN solution that prioritizes traffic end to end — using TSN in the wired domain and 5G Quality-of-Service (QoS) mechanisms in the wireless domain.',
+          'The control task uses two inverted pendulums, each stabilized by a Linear Quadratic Regulator (LQR) running on an edge server. One pendulum is mapped to a slice that is fully prioritized across both the wireless and wired segments; the other shares that slice with best-effort traffic. When heavy cross-traffic is injected, the prioritized pendulum keeps its closed loop stable, while the non-prioritized pendulum loses control and falls.',
+          'By making the effect of end-to-end prioritization directly visible — one pendulum standing, the other failing — the demonstrator offers an intuitive yet rigorous validation of 5G–TSN integration for reliable edge control in mixed-traffic industrial environments.'
+        ],
+        gallery: [
+          { src: 'assets/pendulum-arch.png', caption: 'System architecture: the 5G core, Ericsson RAN, and TSN backhaul, with two pendulums mapped to a prioritized flow (5QI 9 / ARP 9) and a shared best-effort flow (5QI 8 / ARP 8) across the converged network.' },
+          { src: 'assets/pendulum-setup.png', caption: 'The physical testbed: Ericsson RAN, 5G core and vPLC servers, TSN backhaul, UEs, traffic generators, and the inverted pendulum under real-time monitoring.' }
+        ]
+      },
+      semantic: {
+        paras: [
+          'Time-Sensitive Networking (TSN) delivers deterministic communication for industrial systems — bounded latency, high reliability, and traffic prioritization. This demonstrator shows how a real TSN deployment can carry semantic- and freshness-aware traffic in a connected factory-floor scenario.',
+          'The TSN network itself — the end stations and the TSN-capable switches — runs on real hardware, while the factory floor (drones, AGVs, robotic arms, and human operators) lives in a 3D simulation. You can drive selected simulated entities and watch their state updates travel across the real TSN network with priorities and update intervals that adapt on the fly.',
+          'Two signals drive that adaptation: information freshness, measured by the Age of Information (AoI), and semantic relevance — how important an entity\u2019s current state is in the factory-floor context. The demo combines both to assign TSN priorities and tune each flow\u2019s update rate at runtime. To the best of our knowledge, this is the first real TSN-based setup to realize semantic- and freshness-aware communication through dynamic priority adaptation.'
+        ],
+        gallery: [
+          { src: 'assets/semantic-setup.png', caption: 'The physical setup: TSN switches and end stations in the rack, with a ground-truth view, an operator view, and a hand controller for driving the simulated entities.' },
+          { src: 'assets/semantic-demo.png', caption: 'The 3D factory floor: drones, AGVs, robotic arms, conveyors, and human operators, each shown with its own state-update region and rate.' },
+          { src: 'assets/semantic-dashboard.png', caption: 'Operator dashboard for monitoring entities and observing how TSN priorities and update rates adapt to freshness and semantic relevance.' }
+        ]
+      }
+    };
+    const VIDEOS = { 'negative-latency': 'assets/ballbalancer.webm', 'semantic': 'assets/semantic.mp4', 'reliability': 'assets/reliability.webm', 'pendulum': 'assets/pendulum.webm' };
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id') || 'kinematic';
+    const long = LONG[id];
+    const d = DATA[id] || DATA.kinematic;
+    const videoSrc = VIDEOS[id] || '';
+    this._videoSrc = videoSrc;
+    const raw = (typeof window !== 'undefined' && window.DCRG_PUBLICATIONS) ? window.DCRG_PUBLICATIONS : [];
+    const KEYWORDS = {
+      kinematic: ['tsn', 'synchron', 'deterministic', 'omnet', 'testbed', 'time-sensitive'],
+      pendulum: ['5g-tsn', 'pendulum', 'scheduling', 'routing', 'priority', 'flextac', 'red-sp', 'interplay', 'queues', 'cloud-ran', 'qos', 'quality of service'],
+      agv: ['robotic', 'campus', 'reliab', 'industrial automation', 'nsa', 'device-to-device', 'd2d', 'mobile'],
+      reliability: ['reliab', 'network coding', 'recovery', 'rlnc', 'prac', 'redundan', '802.1cb', 'order recovery', 'coding'],
+      semantic: ['semantic', 'age of information', 'aoi', 'tactile', 'freshness', 'network of networks', 'healing', 'tele-healthcare'],
+      'negative-latency': ['tactile', 'age of information', 'aoi', 'twin', 'network of networks', 'prediction', 'healing']
+    };
+    const kw = KEYWORDS[id] || [];
+    const matches = (p) => kw.some(k => ((p.title || '') + ' ' + (p.authors || '')).toLowerCase().includes(k));
+    let selected = kw.length ? raw.filter(matches) : raw.slice();
+    if (selected.length < 2) selected = raw.slice();
+    const isFiltered = selected.length > 0 && selected.length < raw.length;
+    const pubs = selected.map(p => ({
+      title: p.title, authors: p.authors, year: p.year,
+      url: p.url || ('https://scholar.google.com/scholar?q=' + encodeURIComponent(p.title)),
+      hasUrl: true, noUrl: false,
+      bookChapter: p.bookChapter || '',
+      chapterLine: p.bookChapter ? ('Chapter in “' + p.bookChapter + '”') : ''
+    }));
+    return {
+      num: d.num,
+      title: d.title,
+      body1: d.body[0],
+      body2: d.body[1],
+      posterId: 'video-' + id,
+      posterPlaceholder: 'Drop a video poster for ' + d.title,
+      videoSrc,
+      hasVideo: !!videoSrc,
+      noVideo: !videoSrc,
+      videoCaption: videoSrc ? 'Recorded demonstrator clip.' : 'Demo video — drop a poster frame above, or replace with the recorded clip.',
+      hasLong: !!long,
+      longParas: long ? long.paras : [],
+      hasGallery: !!(long && long.gallery && long.gallery.length),
+      gallery: long ? (long.gallery || []) : [],
+      pubs,
+      pubCount: pubs.length,
+      pubHeading: isFiltered ? 'Related publications' : 'Publications',
+      pubSubtitle: isFiltered
+        ? 'Publications from the group related to this demonstrator’s topic.'
+        : 'Selected work from the Deterministic Communications Research Group.'
+    };
+  }
+}
+</script>
+</body>
+</html>

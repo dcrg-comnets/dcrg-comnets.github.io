@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#FFF5FD; --bg-rgb:255,245,253;
+      --ink:#022E57; --ink-rgb:2,46,87;
+      --blue:#005A8D; --blue-rgb:0,90,141;
+      --pink:#FF96AD; --pink-rgb:255,150,173;
+      --band:color-mix(in srgb, var(--blue) 9%, var(--bg));
+      --muted:color-mix(in srgb, var(--ink) 66%, var(--bg));
+      --hover:color-mix(in srgb, var(--blue) 7%, var(--bg));
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;zoom:1.2;overflow-x:hidden;}
+    body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    ::selection{background:var(--blue);color:var(--bg);}
+    a{color:inherit;text-decoration:none;}
+    @keyframes dcrgPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.7);}}
+    @keyframes dcrgFadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  </style>
+  <script src="image-slot.js"></script>
+  <script src="publications.js"></script>
+</helmet>
+
+<canvas id="net-canvas" style="position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;"></canvas>
+
+<div style="position:relative;z-index:2;">
+
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(var(--bg-rgb),0.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(var(--ink-rgb),0.08);">
+    <a href="#top" style="display:flex;align-items:center;gap:14px;">
+      
+    <img src="assets/logo-dark.svg" alt="DCRG" style="height: 75px; width: 123px; display: block"></a>
+    <nav style="display:flex;align-items:center;gap:38px;font-size:15px;font-weight:500;letter-spacing:0.01em;">
+      <a href="#research" style="transition:color .2s;" style-hover="color:var(--blue)">Research</a>
+      <a href="#approach" style="transition:color .2s;" style-hover="color:var(--blue)">Approach</a>
+      <a href="#demos" style="transition:color .2s;" style-hover="color:var(--blue)">Demonstrators</a>
+      <a href="#about" style="transition:color .2s;" style-hover="color:var(--blue)">Team</a>
+      <a href="#theses" style="transition:color .2s;" style-hover="color:var(--blue)">Publications</a>
+      <a href="#projects" style="transition:color .2s;" style-hover="color:var(--blue)">Projects</a>
+      <a href="#contact" style="display:inline-flex;align-items:center;padding:9px 20px;background:var(--ink);color:var(--bg);border-radius:2px;font-weight:600;transition:background .2s;" style-hover="background:var(--blue)">Contact</a>
+    </nav>
+  </header>
+
+  <section id="top" style="position:relative;min-height:calc(100vh - 79px);display:flex;align-items:center;padding:0 40px;">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(var(--bg-rgb),0.35) 0%,rgba(var(--bg-rgb),0.15) 40%,rgba(var(--bg-rgb),0.85) 100%);pointer-events:none;"></div>
+    <div style="position: relative; max-width: 1180px; margin: 0 auto; width: 1223px; padding: 60px 0; height: 686px">
+      
+      <h1 style="margin-top:28px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(42px,6.4vw,84px);line-height:1.02;letter-spacing:-0.02em;max-width:16ch;">Prototyping the future of network communication</h1>
+      <p style="margin-top:28px;font-size:clamp(17px,1.7vw,21px);line-height:1.6;max-width:60ch;color:var(--muted);">We build experimental setups and testbeds to research, prototype, and evaluate future communication networks in realistic environments — turning emerging network concepts into practical, testable systems.</p>
+      <div style="margin-top:40px;display:flex;flex-wrap:wrap;gap:16px;">
+        <a href="#research" style="display:inline-flex;align-items:center;gap:10px;padding:15px 28px;background:var(--ink);color:var(--bg);border-radius:2px;font-weight:600;font-size:16px;transition:transform .2s,background .2s;" style-hover="background:var(--blue);transform:translateY(-2px)">Explore our research →</a>
+        <a href="#approach" style="display:inline-flex;align-items:center;gap:10px;padding:15px 28px;background:transparent;color:var(--ink);border:1.5px solid rgba(var(--ink-rgb),0.25);border-radius:2px;font-weight:600;font-size:16px;transition:border-color .2s,color .2s;" style-hover="border-color:var(--blue);color:var(--blue)">How we work</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="research" style="position:relative;background:color-mix(in srgb, var(--bg) 85%, transparent);padding:110px 40px;border-top:1px solid rgba(var(--ink-rgb),0.08);">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--blue);font-size:15px;letter-spacing:0.08em;">01</span>
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.6vw,46px);letter-spacing:-0.02em;">Explore Our Research</h2>
+      </div>
+      <p style="margin-top:18px;max-width:62ch;font-size:18px;line-height:1.6;color:var(--muted);">Our work centres on deterministic networking — guaranteeing bounded latency and reliability for the next generation of industrial, mobile, and converged networks. We span the path from protocol concepts to working hardware testbeds.</p>
+
+      <div style="margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:rgba(var(--ink-rgb),0.1);border:1px solid rgba(var(--ink-rgb),0.1);">
+        <div style="background:var(--bg);padding:38px 34px;transition:background .25s;" style-hover="background:var(--hover)">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0.06em;">01</div>
+          <h3 style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:23px;line-height:1.2;">Time Synchronization</h3>
+          <p style="margin-top:14px;font-size:15.5px;line-height:1.6;color:var(--muted);">Research on precise clock synchronization, deterministic timing, and time-aware communication for future networked systems.</p>
+        </div>
+        <div style="background:var(--bg);padding:38px 34px;transition:background .25s;" style-hover="background:var(--hover)">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0.06em;">02</div>
+          <h3 style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:23px;line-height:1.2;">Semantic: Store. Compute. Communicate.</h3>
+          <p style="margin-top:14px;font-size:15.5px;line-height:1.6;color:var(--muted);">Research on semantic and goal-oriented communication, where information is stored, processed, and transmitted based on meaning, freshness, and usefulness for the application.</p>
+        </div>
+        <div style="background:var(--bg);padding:38px 34px;transition:background .25s;" style-hover="background:var(--hover)">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0.06em;">03</div>
+          <h3 style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:23px;line-height:1.2;">Reliability of the Future</h3>
+          <p style="margin-top:14px;font-size:15.5px;line-height:1.6;color:var(--muted);">Research on resilient and intelligent future networks using agentic reconfiguration, network digital twins, and world models to adapt communication systems in real time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="approach" style="position:relative;background:color-mix(in srgb, var(--band) 85%, transparent);padding:110px 40px;">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:64px;align-items:start;">
+      <div>
+        <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--blue);font-size:15px;letter-spacing:0.08em;">02</span>
+          <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.6vw,46px);letter-spacing:-0.02em;">From concept to testbed</h2>
+        </div>
+        <p style="margin-top:18px;font-size:18px;line-height:1.65;color:var(--muted);max-width:46ch;">We don't stop at simulation. Our goal is to turn emerging network concepts into practical, testable systems — measured and evaluated in realistic environments, on real hardware.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2px;">
+        <div style="display:flex;gap:22px;padding:26px 0;border-top:1px solid rgba(var(--ink-rgb),0.2);">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;color:var(--blue);min-width:34px;">→</span>
+          <div>
+            <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:19px;">Research &amp; concept</h4>
+            <p style="margin-top:6px;font-size:15.5px;line-height:1.6;color:var(--muted);">Identifying open problems in deterministic communication and designing mechanisms to solve them.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:22px;padding:26px 0;border-top:1px solid rgba(var(--ink-rgb),0.2);">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;color:var(--blue);min-width:34px;">→</span>
+          <div>
+            <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:19px;">Prototype &amp; build</h4>
+            <p style="margin-top:6px;font-size:15.5px;line-height:1.6;color:var(--muted);">Implementing concepts as working systems and assembling testbeds that mirror real deployments.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:22px;padding:26px 0;border-top:1px solid rgba(var(--ink-rgb),0.2);border-bottom:1px solid rgba(var(--ink-rgb),0.2);">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;color:var(--blue);min-width:34px;">→</span>
+          <div>
+            <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:19px;">Evaluate &amp; validate</h4>
+            <p style="margin-top:6px;font-size:15.5px;line-height:1.6;color:var(--muted);">Measuring behaviour under realistic conditions to prove guarantees hold beyond theory.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demos" style="position:relative;background:var(--bg);padding:110px 40px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--blue);font-size:15px;letter-spacing:0.08em;">03</span>
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.6vw,46px);letter-spacing:-0.02em;">Demonstrators &amp; Testbeds</h2>
+      </div>
+      <p style="margin-top:18px;max-width:62ch;font-size:18px;line-height:1.6;color:var(--muted);">Hands-on experimental setups where our research meets real hardware — from motion control to mobile robots and semantic-aware factory floors.</p>
+
+      <div style="margin-top:44px;">
+        <div id="demo-viewport" style="position:relative;overflow:hidden;border-radius:6px;border:1px solid rgba(var(--ink-rgb),0.12);background:var(--ink);">
+          <div id="demo-track" style="position:relative;height:clamp(300px,46vw,520px);">
+
+            <div style="position:absolute;inset:0;opacity:0;transition:opacity .8s ease;">
+              <img src="assets/lab.png" alt="Inside the DCRG lab" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+              <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(var(--ink-rgb),0.88) 0%,rgba(var(--ink-rgb),0.5) 46%,rgba(var(--ink-rgb),0.08) 100%);"></div>
+              <div style="position:absolute;left:0;bottom:0;padding:clamp(28px,4vw,48px);max-width:640px;color:var(--bg);">
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);">Our Lab</div>
+                <h3 style="margin-top:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(24px,3vw,40px);line-height:1.08;">Where the research becomes real</h3>
+                <p style="margin-top:14px;font-size:16px;line-height:1.55;color:rgba(var(--bg-rgb),0.85);max-width:46ch;">Compute racks, mobile robots, and real-time control testbeds sharing one space at TU Dresden — the home of every demonstrator below.</p>
+              </div>
+            </div>
+
+            <div style="position:absolute;inset:0;opacity:0;transition:opacity .8s ease;">
+              <image-slot id="demo-img-kinematic" shape="rect" placeholder="Drop a photo of the 2-Axis Kinematic System" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></image-slot>
+              <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(var(--ink-rgb),0.82) 0%,rgba(var(--ink-rgb),0.42) 52%,rgba(var(--ink-rgb),0.05) 100%);"></div>
+              <div style="position:absolute;left:0;bottom:0;padding:clamp(28px,4vw,48px);max-width:600px;color:var(--bg);pointer-events:none;">
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);">Demonstrator 01</div>
+                <h3 style="margin-top:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(23px,2.8vw,36px);line-height:1.1;">2-Axis Kinematic System</h3>
+                <p style="margin-top:12px;font-size:15.5px;line-height:1.55;color:rgba(var(--bg-rgb),0.85);max-width:44ch;">A compact motion-control demonstrator for deterministic communication, synchronization, and real-time control.</p>
+                <a href="demonstrator.html?id=kinematic" style="pointer-events:auto;margin-top:18px;display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:var(--pink);color:var(--ink);border-radius:100px;font-weight:600;font-size:14.5px;transition:transform .2s;" style-hover="transform:translateY(-2px)">View testbed →</a>
+              </div>
+            </div>
+
+            <div style="position:absolute;inset:0;opacity:0;transition:opacity .8s ease;">
+              <video src="assets/semantic.mp4" autoplay="" loop="" muted="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
+              <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(var(--ink-rgb),0.82) 0%,rgba(var(--ink-rgb),0.42) 52%,rgba(var(--ink-rgb),0.05) 100%);"></div>
+              <div style="position:absolute;left:0;bottom:0;padding:clamp(28px,4vw,48px);max-width:600px;color:var(--bg);pointer-events:none;">
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);">Demonstrator 02</div>
+                <h3 style="margin-top:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(23px,2.8vw,36px);line-height:1.1;">Semantic Prioritization Demo</h3>
+                <p style="margin-top:12px;font-size:15.5px;line-height:1.55;color:rgba(var(--bg-rgb),0.85);max-width:44ch;">A factory-floor demonstrator prioritizing communication and computation by semantic importance, urgency, and application context.</p>
+                <a href="demonstrator.html?id=semantic" style="pointer-events:auto;margin-top:18px;display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:var(--pink);color:var(--ink);border-radius:100px;font-weight:600;font-size:14.5px;transition:transform .2s;" style-hover="transform:translateY(-2px)">View testbed →</a>
+              </div>
+            </div>
+
+            <div style="position:absolute;inset:0;opacity:0;transition:opacity .8s ease;">
+              <video src="assets/pendulum.webm" autoplay="" loop="" muted="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
+              <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(var(--ink-rgb),0.82) 0%,rgba(var(--ink-rgb),0.42) 52%,rgba(var(--ink-rgb),0.05) 100%);"></div>
+              <div style="position:absolute;left:0;bottom:0;padding:clamp(28px,4vw,48px);max-width:600px;color:var(--bg);pointer-events:none;">
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);">Demonstrator 03</div>
+                <h3 style="margin-top:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(23px,2.8vw,36px);line-height:1.1;">Pendulum over 5G-TSN</h3>
+                <p style="margin-top:12px;font-size:15.5px;line-height:1.55;color:rgba(var(--bg-rgb),0.85);max-width:44ch;">Real-time pendulum control over 5G-TSN — evaluating timing, latency, and closed-loop performance across wired and wireless.</p>
+                <a href="demonstrator.html?id=pendulum" style="pointer-events:auto;margin-top:18px;display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:var(--pink);color:var(--ink);border-radius:100px;font-weight:600;font-size:14.5px;transition:transform .2s;" style-hover="transform:translateY(-2px)">View testbed →</a>
+              </div>
+            </div>
+
+            <div style="position:absolute;inset:0;opacity:0;transition:opacity .8s ease;">
+              <video src="assets/reliability.webm" autoplay="" loop="" muted="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
+              <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(var(--ink-rgb),0.82) 0%,rgba(var(--ink-rgb),0.42) 52%,rgba(var(--ink-rgb),0.05) 100%);"></div>
+              <div style="position:absolute;left:0;bottom:0;padding:clamp(28px,4vw,48px);max-width:600px;color:var(--bg);pointer-events:none;">
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);">Demonstrator 04</div>
+                <h3 style="margin-top:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(23px,2.8vw,36px);line-height:1.1;">End-to-End Reliability with Application Twin and TSN</h3>
+                <p style="margin-top:12px;font-size:15.5px;line-height:1.55;color:rgba(var(--bg-rgb),0.85);max-width:44ch;">An application twin combined with TSN for predictable, resilient, end-to-end reliable service for cyber-physical applications.</p>
+                <a href="demonstrator.html?id=reliability" style="pointer-events:auto;margin-top:18px;display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:var(--pink);color:var(--ink);border-radius:100px;font-weight:600;font-size:14.5px;transition:transform .2s;" style-hover="transform:translateY(-2px)">View testbed →</a>
+              </div>
+            </div>
+
+            <div style="position:absolute;inset:0;opacity:0;transition:opacity .8s ease;">
+              <img src="assets/agvdemo.png" alt="Remote AGV demo — Götting AGV and control testbed" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+              <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(var(--ink-rgb),0.82) 0%,rgba(var(--ink-rgb),0.42) 52%,rgba(var(--ink-rgb),0.05) 100%);"></div>
+              <div style="position:absolute;left:0;bottom:0;padding:clamp(28px,4vw,48px);max-width:600px;color:var(--bg);pointer-events:none;">
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);">Demonstrator 05</div>
+                <h3 style="margin-top:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(23px,2.8vw,36px);line-height:1.1;">Remote AGV</h3>
+                <p style="margin-top:12px;font-size:15.5px;line-height:1.55;color:rgba(var(--bg-rgb),0.85);max-width:44ch;">Remotely controlling an AGV over converged DECT NR, Wi-Fi, and 5G — deterministic low-latency wireless control with seamless link selection.</p>
+                <a href="demonstrator.html?id=agv" style="pointer-events:auto;margin-top:18px;display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:var(--pink);color:var(--ink);border-radius:100px;font-weight:600;font-size:14.5px;transition:transform .2s;" style-hover="transform:translateY(-2px)">View testbed →</a>
+              </div>
+            </div>
+
+            <div style="position:absolute;inset:0;opacity:0;transition:opacity .8s ease;">
+              <video src="assets/ballbalancer.webm" autoplay="" loop="" muted="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
+              <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(var(--ink-rgb),0.82) 0%,rgba(var(--ink-rgb),0.42) 52%,rgba(var(--ink-rgb),0.05) 100%);"></div>
+              <div style="position:absolute;left:0;bottom:0;padding:clamp(28px,4vw,48px);max-width:600px;color:var(--bg);pointer-events:none;">
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);">Demonstrator 06</div>
+                <h3 style="margin-top:10px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(23px,2.8vw,36px);line-height:1.1;">Parallel Future Evaluation: Unified Networking &amp; Computation</h3>
+                <p style="margin-top:12px;font-size:15.5px;line-height:1.55;color:rgba(var(--bg-rgb),0.85);max-width:44ch;">An application twin that predicts future situations, evaluates action paths in parallel, and prepares the response before the real event happens.</p>
+                <a href="demonstrator.html?id=negative-latency" style="pointer-events:auto;margin-top:18px;display:inline-flex;align-items:center;gap:8px;padding:11px 20px;background:var(--pink);color:var(--ink);border-radius:100px;font-weight:600;font-size:14.5px;transition:transform .2s;" style-hover="transform:translateY(-2px)">View testbed →</a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div id="demo-dots" style="display:flex;gap:9px;justify-content:center;margin-top:18px;">
+          <span style="width:9px;height:9px;border-radius:50%;background:var(--ink);cursor:pointer;transition:background .25s;"></span>
+          <span style="width:9px;height:9px;border-radius:50%;background:rgba(var(--ink-rgb),0.22);cursor:pointer;transition:background .25s;"></span>
+          <span style="width:9px;height:9px;border-radius:50%;background:rgba(var(--ink-rgb),0.22);cursor:pointer;transition:background .25s;"></span>
+          <span style="width:9px;height:9px;border-radius:50%;background:rgba(var(--ink-rgb),0.22);cursor:pointer;transition:background .25s;"></span>
+          <span style="width:9px;height:9px;border-radius:50%;background:rgba(var(--ink-rgb),0.22);cursor:pointer;transition:background .25s;"></span>
+          <span style="width:9px;height:9px;border-radius:50%;background:rgba(var(--ink-rgb),0.22);cursor:pointer;transition:background .25s;"></span>
+          <span style="width:9px;height:9px;border-radius:50%;background:rgba(var(--ink-rgb),0.22);cursor:pointer;transition:background .25s;"></span>
+        </div>
+      </div>
+
+      <div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:rgba(var(--ink-rgb),0.1);border:1px solid rgba(var(--ink-rgb),0.1);">
+        <a href="demonstrator.html?id=kinematic" style="display:flex;flex-direction:column;background:var(--bg);padding:36px 32px;transition:background .25s;" style-hover="background:var(--hover)">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0.06em;">01</div>
+          <h3 style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:21px;line-height:1.22;">2-Axis Kinematic System</h3>
+          <p style="margin-top:13px;font-size:15px;line-height:1.6;color:var(--muted);">A compact motion-control demonstrator used to study deterministic communication, synchronization, and real-time control behavior in future industrial networks.</p>
+          <span style="margin-top:18px;font-family:'Space Grotesk',sans-serif;font-size:13.5px;font-weight:600;color:var(--blue);">View testbed →</span>
+        </a>
+        <a href="demonstrator.html?id=semantic" style="display:flex;flex-direction:column;background:var(--bg);padding:36px 32px;transition:background .25s;" style-hover="background:var(--hover)">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0.06em;">02</div>
+          <h3 style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:21px;line-height:1.22;">Semantic Prioritization Demo</h3>
+          <p style="margin-top:13px;font-size:15px;line-height:1.6;color:var(--muted);">An interactive factory-floor demonstrator showing how communication and computation resources can be prioritized based on semantic importance, urgency, and application context.</p>
+          <span style="margin-top:18px;font-family:'Space Grotesk',sans-serif;font-size:13.5px;font-weight:600;color:var(--blue);">View testbed →</span>
+        </a>
+        <a href="demonstrator.html?id=pendulum" style="display:flex;flex-direction:column;background:var(--bg);padding:36px 32px;transition:background .25s;" style-hover="background:var(--hover)">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0.06em;">03</div>
+          <h3 style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:21px;line-height:1.22;">Pendulum over 5G-TSN</h3>
+          <p style="margin-top:13px;font-size:15px;line-height:1.6;color:var(--muted);">A real-time pendulum control setup integrated with 5G-TSN, used to evaluate timing, latency, and closed-loop control performance across converged wired and wireless networks.</p>
+          <span style="margin-top:18px;font-family:'Space Grotesk',sans-serif;font-size:13.5px;font-weight:600;color:var(--blue);">View testbed →</span>
+        </a>
+        <a href="demonstrator.html?id=reliability" style="display:flex;flex-direction:column;background:var(--bg);padding:36px 32px;transition:background .25s;" style-hover="background:var(--hover)">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0.06em;">04</div>
+          <h3 style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:21px;line-height:1.22;">End-to-End Reliability with Application Twin and TSN</h3>
+          <p style="margin-top:13px;font-size:15px;line-height:1.6;color:var(--muted);">A reliability-focused demonstrator combining an application twin with TSN-based communication to evaluate predictable, resilient, and end-to-end reliable service for cyber-physical applications.</p>
+          <span style="margin-top:18px;font-family:'Space Grotesk',sans-serif;font-size:13.5px;font-weight:600;color:var(--blue);">View testbed →</span>
+        </a>
+        <a href="demonstrator.html?id=agv" style="display:flex;flex-direction:column;background:var(--bg);padding:36px 32px;transition:background .25s;" style-hover="background:var(--hover)">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0.06em;">05</div>
+          <h3 style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:21px;line-height:1.22;">Remote AGV</h3>
+          <p style="margin-top:13px;font-size:15px;line-height:1.6;color:var(--muted);">Remotely controlling an automated guided vehicle across DECT NR, Wi-Fi, and 5G simultaneously — studying deterministic low-latency control, link selection, and seamless handover for mobile industrial robots.</p>
+          <span style="margin-top:18px;font-family:'Space Grotesk',sans-serif;font-size:13.5px;font-weight:600;color:var(--blue);">View testbed →</span>
+        </a>
+        <a href="demonstrator.html?id=negative-latency" style="display:flex;flex-direction:column;background:var(--bg);padding:36px 32px;transition:background .25s;" style-hover="background:var(--hover)">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--blue);letter-spacing:0.06em;">06</div>
+          <h3 style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:21px;line-height:1.22;">Parallel Future Evaluation: Unified Networking &amp; Computation</h3>
+          <p style="margin-top:13px;font-size:15px;line-height:1.6;color:var(--muted);">An application-twin-based demonstrator that predicts possible future situations, evaluates multiple action paths in parallel, and prepares the network or application response before the real event happens.</p>
+          <span style="margin-top:18px;font-family:'Space Grotesk',sans-serif;font-size:13.5px;font-weight:600;color:var(--blue);">View testbed →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="position:relative;background:color-mix(in srgb, var(--band) 86%, transparent);padding:110px 40px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--blue);font-size:15px;letter-spacing:0.08em;">04</span>
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.6vw,46px);letter-spacing:-0.02em;">Who we are</h2>
+      </div>
+      <p style="margin-top:24px;max-width:70ch;font-size:clamp(19px,2vw,26px);line-height:1.5;color:var(--ink);font-weight:400;">The Deterministic Communications Research Group is part of the <strong style="font-weight:600;">Deutsche Telekom Chair of Communication Networks</strong> at <strong style="font-weight:600;">TU Dresden</strong>, advancing the science and engineering of networks that deliver on strict timing and reliability guarantees.</p>
+
+      <a href="https://cn.ifn.et.tu-dresden.de/team-member/fitzek/" target="_blank" rel="noopener" style="margin-top:56px;display:flex;align-items:center;gap:26px;background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.18);padding:30px 32px;border-radius:3px;flex-wrap:wrap;transition:border-color .2s,transform .2s;" style-hover="border-color:var(--blue);transform:translateY(-2px)">
+        <img src="assets/team/fitzek.jpg" alt="Prof. Frank H. P. Fitzek" style="width:74px;height:74px;flex-shrink:0;border-radius:50%;object-fit:cover;object-position:center top;">
+        <div style="min-width:200px;">
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);">Chair Holder</div>
+          <div style="margin-top:6px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:23px;line-height:1.2;color:var(--ink);">Prof. Dr.-Ing. Dr. h.c. Frank H. P. Fitzek</div>
+        </div>
+      </a>
+
+      <h3 style="margin-top:48px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Researchers</h3>
+      <div style="margin-top:22px;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;">
+        <a href="https://cn.ifn.et.tu-dresden.de/team-member/stefan-senk/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:16px;background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.16);padding:18px 20px;border-radius:3px;transition:border-color .2s,transform .2s;" style-hover="border-color:var(--blue);transform:translateY(-2px)">
+          <img src="assets/team/senk.jpg" alt="Dr. Stefan Senk" style="width:48px;height:48px;flex-shrink:0;border-radius:50%;object-fit:cover;object-position:center top;">
+          <div><div style="font-weight:600;font-size:16px;color:var(--ink);">Dr. Stefan Senk</div><div style="font-size:13.5px;color:var(--muted);margin-top:2px;">Researcher</div></div>
+        </a>
+        <a href="https://cn.ifn.et.tu-dresden.de/team-member/hosein-kangavar-nazari/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:16px;background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.16);padding:18px 20px;border-radius:3px;transition:border-color .2s,transform .2s;" style-hover="border-color:var(--blue);transform:translateY(-2px)">
+          <img src="assets/team/hosein.jpg" alt="Hosein Kangavar Nazari" style="width:48px;height:48px;flex-shrink:0;border-radius:50%;object-fit:cover;object-position:center top;">
+          <div><div style="font-weight:600;font-size:16px;color:var(--ink);">Hosein Kangavar Nazari</div><div style="font-size:13.5px;color:var(--muted);margin-top:2px;">Researcher</div></div>
+        </a>
+        <a href="https://cn.ifn.et.tu-dresden.de/team-member/tobias-scheinert/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:16px;background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.16);padding:18px 20px;border-radius:3px;transition:border-color .2s,transform .2s;" style-hover="border-color:var(--blue);transform:translateY(-2px)">
+          <img src="assets/team/scheinert.jpg" alt="Tobias Scheinert" style="width:48px;height:48px;flex-shrink:0;border-radius:50%;object-fit:cover;object-position:center top;">
+          <div><div style="font-weight:600;font-size:16px;color:var(--ink);">Tobias Scheinert</div><div style="font-size:13.5px;color:var(--muted);margin-top:2px;">Researcher</div></div>
+        </a>
+        <div style="display:flex;align-items:center;gap:16px;background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.16);padding:18px 20px;border-radius:3px;">
+          <img src="assets/team/kurt.jpg" alt="Mehmet Akif Kurt" style="width:48px;height:48px;flex-shrink:0;border-radius:50%;object-fit:cover;object-position:center top;">
+          <div><div style="font-weight:600;font-size:16px;color:var(--ink);">Mehmet Akif Kurt</div><div style="font-size:13.5px;color:var(--muted);margin-top:2px;">Researcher</div></div>
+        </div>
+        <a href="https://cn.ifn.et.tu-dresden.de/team-member/how-hang-liu/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:16px;background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.16);padding:18px 20px;border-radius:3px;transition:border-color .2s,transform .2s;" style-hover="border-color:var(--blue);transform:translateY(-2px)">
+          <img src="assets/team/liu.jpg" alt="How-Hang Liu" style="width:48px;height:48px;flex-shrink:0;border-radius:50%;object-fit:cover;object-position:center top;">
+          <div><div style="font-weight:600;font-size:16px;color:var(--ink);">How-Hang Liu</div><div style="font-size:13.5px;color:var(--muted);margin-top:2px;">Researcher</div></div>
+        </a>
+        <a href="https://cn.ifn.et.tu-dresden.de/team-member/marian-ulbricht/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:16px;background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.16);padding:18px 20px;border-radius:3px;transition:border-color .2s,transform .2s;" style-hover="border-color:var(--blue);transform:translateY(-2px)">
+          <img src="assets/team/ulbricht.jpg" alt="Marian Ulbricht" style="width:48px;height:48px;flex-shrink:0;border-radius:50%;object-fit:cover;object-position:center top;">
+          <div><div style="font-weight:600;font-size:16px;color:var(--ink);">Marian Ulbricht</div><div style="font-size:13.5px;color:var(--muted);margin-top:2px;">Researcher</div></div>
+        </a>
+      </div>
+
+      <h3 style="margin-top:44px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Student Assistants</h3>
+      <div style="margin-top:22px;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;">
+        <div style="display:flex;align-items:center;gap:14px;background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.16);padding:16px 18px;border-radius:3px;">
+          <div style="width:40px;height:40px;flex-shrink:0;border-radius:50%;background:rgba(var(--blue-rgb),0.25);color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;">FB</div>
+          <div><div style="font-weight:600;font-size:15px;color:var(--ink);">Friedrich Biehl</div><div style="font-size:13px;color:var(--muted);margin-top:1px;">SHK</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.16);padding:16px 18px;border-radius:3px;">
+          <div style="width:40px;height:40px;flex-shrink:0;border-radius:50%;background:rgba(var(--blue-rgb),0.25);color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;">JS</div>
+          <div><div style="font-weight:600;font-size:15px;color:var(--ink);">Jan Conrad Schulte</div><div style="font-size:13px;color:var(--muted);margin-top:1px;">SHK</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.16);padding:16px 18px;border-radius:3px;">
+          <div style="width:40px;height:40px;flex-shrink:0;border-radius:50%;background:rgba(var(--blue-rgb),0.25);color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;">SD</div>
+          <div><div style="font-weight:600;font-size:15px;color:var(--ink);">Sumalyo Datta</div><div style="font-size:13px;color:var(--muted);margin-top:1px;">WHK</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.16);padding:16px 18px;border-radius:3px;">
+          <div style="width:40px;height:40px;flex-shrink:0;border-radius:50%;background:rgba(var(--blue-rgb),0.25);color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;">RK</div>
+          <div><div style="font-weight:600;font-size:15px;color:var(--ink);">Rohith Siju Kachappilly</div><div style="font-size:13px;color:var(--muted);margin-top:1px;">SHK</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.16);padding:16px 18px;border-radius:3px;">
+          <div style="width:40px;height:40px;flex-shrink:0;border-radius:50%;background:rgba(var(--blue-rgb),0.25);color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;">SS</div>
+          <div><div style="font-weight:600;font-size:15px;color:var(--ink);">Seyedali Seyedhosseini</div><div style="font-size:13px;color:var(--muted);margin-top:1px;">SHK</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="theses" style="position:relative;background:var(--bg);padding:110px 40px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--blue);font-size:15px;letter-spacing:0.08em;">05</span>
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.6vw,46px);letter-spacing:-0.02em;">Theses &amp; Publications</h2>
+      </div>
+      <p style="margin-top:18px;max-width:62ch;font-size:18px;line-height:1.6;color:var(--muted);">Student and graduate research carried out within the group, alongside the group's peer-reviewed publications.</p>
+
+      <div id="tp-tabs" style="margin-top:34px;display:flex;flex-wrap:wrap;border-bottom:1px solid rgba(var(--ink-rgb),0.14);">
+        <button data-tptab="theses" style="appearance:none;border:none;background:transparent;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;padding:10px 2px;margin-right:26px;color:var(--ink);border-bottom:2px solid var(--blue);">Theses <span style="color:var(--muted);font-weight:500;">12</span></button>
+        <button data-tptab="pubs" style="appearance:none;border:none;background:transparent;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;padding:10px 2px;color:var(--muted);border-bottom:2px solid transparent;">Publications <span style="font-weight:500;">33</span></button>
+      </div>
+
+      <div id="tab-theses">
+      <div style="margin-top:40px;display:flex;align-items:center;gap:14px;">
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);">Ongoing</h3>
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 8px;border-radius:100px;background:rgba(var(--pink-rgb),0.12);color:var(--blue);font-size:13px;font-weight:600;">5</span>
+        <span style="flex:1;height:1px;background:rgba(var(--ink-rgb),0.12);"></span>
+      </div>
+      <div style="margin-top:8px;">
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Master Thesis</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">Challenges and Opportunities in Using Age of Information for the Tactile Internet</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Shala Ghobadi</div></div>
+        </div>
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Master Thesis</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">Software-Defined Radio Proof of Concept for Coded Collisions in Slotted ALOHA</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Sumalyo Datta</div></div>
+        </div>
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Student Thesis</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">Improving the keyless HMAC for Random Linear Network Coding</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Martin Carnein</div></div>
+        </div>
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Student Thesis</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">DECT NR MAC Layer Feature Implementation</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Johann Jakob Schäuble</div></div>
+        </div>
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Student Thesis</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">DECT NR MAC Layer Feature Implementation</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Julius</div></div>
+        </div>
+      </div>
+
+      <div style="margin-top:56px;display:flex;align-items:center;gap:14px;">
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);">Completed</h3>
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 8px;border-radius:100px;background:rgba(var(--blue-rgb),0.22);color:var(--ink);font-size:13px;font-weight:600;">9</span>
+        <span style="flex:1;height:1px;background:rgba(var(--ink-rgb),0.12);"></span>
+      </div>
+      <div style="margin-top:8px;">
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Diploma Thesis</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">Intelligent Optimization using AI for Emerging Time-Sensitive Applications</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Tobias Scheinert</div></div>
+        </div>
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Diploma Thesis</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">A Study on 5G Quality of Service Mechanisms with OMNeT++</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Hengkai Zhao</div></div>
+        </div>
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Diploma Thesis</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">Enhancing Security Mechanisms for Low-Latency Communication in Network Coding</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Xianyu Zhou</div></div>
+        </div>
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Student Thesis</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">Exploring Efficient Time-aware Shaper Configurations for the Fully Centralized TSN Network Controller</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Abraham Payasian</div></div>
+        </div>
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Student Thesis</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">Time-Sensitive Networking Extensions for Future Industrial 5G Systems</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Kunru Zou</div></div>
+        </div>
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Student Thesis</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">Evaluation on the use of commodity WiFi hardware for testing out physical layer security key generation schemes</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Markus Schmidl</div></div>
+        </div>
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Student Thesis</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">Enabling Ultra-Reliable Communication in Private 5G Networks: Investigating performance of IEEE 802.1CB</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Yujin Zhu</div></div>
+        </div>
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Oberseminar</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">Reliability Enhancements for 5G-Time-Sensitive Networking</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Abraham Payasian</div></div>
+        </div>
+        <div style="display:flex;gap:26px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);border-bottom:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;">
+          <span style="min-width:138px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);padding-top:3px;">Scientific Work</span>
+          <div style="flex:1;min-width:260px;"><div style="font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);">A Study on 5G Device-to-Device Communication</div><div style="margin-top:4px;font-size:14.5px;color:var(--muted);">Sophian Elias Romdhani</div></div>
+        </div>
+      </div>
+      </div>
+
+      <div id="tab-pubs" style="display:none;margin-top:40px;">
+        <div id="pubs-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" style="position:relative;background:color-mix(in srgb, var(--band) 86%, transparent);padding:110px 40px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--blue);font-size:15px;letter-spacing:0.08em;">06</span>
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(30px,3.6vw,46px);letter-spacing:-0.02em;">Projects</h2>
+      </div>
+      <p style="margin-top:18px;max-width:62ch;font-size:18px;line-height:1.6;color:var(--muted);">Funded research advancing 6G, TSN, digital twins, and resilient campus networks for Industry 4.0 and mission-critical use.</p>
+
+      <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:20px;align-items:start;">
+
+        <details data-proj="" style="background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.12);border-radius:6px;padding:30px 30px;transition:box-shadow .25s;">
+          <summary style="list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+              <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:23px;line-height:1.1;">CampusTwin4In</h3>
+              <span data-plus="" style="flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;color:var(--blue);line-height:1;">+</span>
+            </div>
+            <span style="align-self:flex-start;display:inline-flex;align-items:center;padding:6px 13px;border-radius:100px;background:rgba(var(--blue-rgb),0.12);color:var(--blue);font-size:13px;font-weight:600;font-family:'Space Grotesk',sans-serif;letter-spacing:0.02em;">BMFTR · 02/2026 – 01/2029</span>
+            <p style="margin:0;font-size:15.5px;line-height:1.55;color:var(--muted);">A 6G platform for programmable campus networks and their digital twins — deterministic, low-latency communication for Industry 4.0.</p>
+          </summary>
+          <p style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(var(--ink-rgb),0.1);font-size:15px;line-height:1.62;color:var(--muted);">CampusTwin4In investigates how 6G innovations can advance Industry 4.0 by establishing a flexible, programmable, and modular platform for campus networks and their digital twins. It focuses on key 6G platform capabilities — a centralized controller, novel interfaces, and Time-Sensitive Networking (TSN) — to enable deterministic, low-latency, and reliable communication for industrial applications. New real-time protocols, TSN functions, and control architectures are designed and integrated with digital-twin applications, implemented in demonstrators, and complemented by simulation and monitoring. Performance evaluation and AI-supported optimization allow adaptive network configuration, supporting practical validation, standardization, and deployment of future 6G campus networks.</p>
+        </details>
+
+        <details data-proj="" style="background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.12);border-radius:6px;padding:30px 30px;transition:box-shadow .25s;">
+          <summary style="list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+              <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:23px;line-height:1.1;">VICTOR6G</h3>
+              <span data-plus="" style="flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;color:var(--blue);line-height:1;">+</span>
+            </div>
+            <span style="align-self:flex-start;display:inline-flex;align-items:center;padding:6px 13px;border-radius:100px;background:rgba(var(--blue-rgb),0.12);color:var(--blue);font-size:13px;font-weight:600;font-family:'Space Grotesk',sans-serif;letter-spacing:0.02em;">BMFTR · 01/2026 – 12/2028</span>
+            <p style="margin:0;font-size:15.5px;line-height:1.55;color:var(--muted);">A central controller for hybrid 6G–TSN networks that configures reliable, time-critical data streams across wired and wireless domains.</p>
+          </summary>
+          <p style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(var(--ink-rgb),0.1);font-size:15px;line-height:1.62;color:var(--muted);">The 6G-TSN network enables time-critical communication by combining solutions and standardized procedures from the wired and wireless sectors. High performance requires intelligent integration, especially in hybrid networks where a single data stream passes through both domains — making configuration more complex due to differing mechanisms and conditions. VICTOR6G develops a central controller that characterizes data streams by range and requirements, as in Industry 4.0 use cases, and selects optimal solutions and configurations for reliable connectivity. It integrates existing standards, defines new interfaces, adopts advanced deterministic operating-system functions, and applies optimization techniques. Translator components convert configurations between 6G and TSN domains for seamless integration.</p>
+        </details>
+
+        <details data-proj="" style="background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.12);border-radius:6px;padding:30px 30px;transition:box-shadow .25s;">
+          <summary style="list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+              <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:23px;line-height:1.1;">EMAIRIS</h3>
+              <span data-plus="" style="flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;color:var(--blue);line-height:1;">+</span>
+            </div>
+            <span style="align-self:flex-start;display:inline-flex;align-items:center;padding:6px 13px;border-radius:100px;background:rgba(var(--blue-rgb),0.12);color:var(--blue);font-size:13px;font-weight:600;font-family:'Space Grotesk',sans-serif;letter-spacing:0.02em;">SAB · 01/2026 – 09/2028</span>
+            <p style="margin:0;font-size:15.5px;line-height:1.55;color:var(--muted);">Embodied AI for industrial robots, distributing intelligence across cloud, edge, and device over low-latency 5G/6G.</p>
+          </summary>
+          <p style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(var(--ink-rgb),0.1);font-size:15px;line-height:1.62;color:var(--muted);">EMAIRIS investigates novel methods and architectures for embodied AI in industrial robotic systems, with a strong focus on communication and distributed intelligence in networked production environments. By tightly integrating perception, decision-making, and motion execution with multimodal sensing and AI-based behavioral models, robots can act adaptively and learn from experience. A central focus is a scalable, energy-efficient, low-latency infrastructure that dynamically distributes AI processes across cloud, edge, and on-device components using edge computing and 5G/6G communication. This hybrid architecture combines real-time local responsiveness with centralized data analysis and learning, supported by simulation and digital-twin environments for safe training and validation — reducing commissioning times and integration costs while increasing production flexibility.</p>
+        </details>
+
+        <details data-proj="" style="background:var(--bg);border:1px solid rgba(var(--ink-rgb),0.12);border-radius:6px;padding:30px 30px;transition:box-shadow .25s;">
+          <summary style="list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+              <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:23px;line-height:1.1;">ANKOMMEN</h3>
+              <span data-plus="" style="flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;color:var(--blue);line-height:1;">+</span>
+            </div>
+            <span style="align-self:flex-start;display:inline-flex;align-items:center;padding:6px 13px;border-radius:100px;background:rgba(var(--blue-rgb),0.12);color:var(--blue);font-size:13px;font-weight:600;font-family:'Space Grotesk',sans-serif;letter-spacing:0.02em;">BMFTR · 12/2025 – 11/2028</span>
+            <p style="margin:0;font-size:15.5px;line-height:1.55;color:var(--muted);">Resilient 5G campus and nomadic networks for safety-critical and disaster scenarios, including device-to-device and drone deployment.</p>
+          </summary>
+          <p style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(var(--ink-rgb),0.1);font-size:15px;line-height:1.62;color:var(--muted);">ANKOMMEN further develops 5G campus networks and nomadic network infrastructures for safety-critical and dynamic scenarios such as disaster situations, ensuring and optimizing the connectivity of end devices under difficult conditions. It addresses two central questions: how reliable, secure roaming between existing campus networks can be achieved — making efficient use of existing infrastructure, expanding coverage, and ensuring resilience of productive communication networks — and how direct device-to-device communication can work even independently of a central 5G core, to maintain communication in networkless situations. The project also advances integration of MCX services and the development and validation of an integrated overall architecture, providing connectivity and MCX functionalities in disaster situations, including within drone deployment.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact" style="position:relative;background:var(--ink);color:var(--bg);padding:80px 40px 48px;">
+    <div style="max-width: 1180px; margin: 0 auto; position: relative">
+      <div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:56px;align-items:start;">
+        <div style="width: 693px">
+          <sc-if value="{{ showFooterLogo }}" hint-placeholder-val="{{ true }}">
+            <img src="./2025_dcrg_logo_white-mqw7fukt.png" alt="DCRG" style="height:140px;width:auto;display:block;opacity:0.95;">
+          </sc-if>
+          
+          <h4 style="margin-top:34px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:#ffffff">Interested in collaborating?</h4>
+          <div style="margin-top:18px;display:grid;gap:22px;max-width:46ch;">
+            <div>
+              <p style="font-size:14.5px;line-height:1.55;color:rgba(var(--bg-rgb),0.7);">For institutional research partnerships, please contact:</p>
+              <p style="margin-top:8px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--bg);">Stefan Senk</p>
+              <a href="mailto:stefan.senk@tu-dresden.de" style="margin-top:3px;display:inline-block;font-family:IBM Plex Sans;font-weight:200;font-size:clamp(14px,1.6vw,18px);color:#83cbf9;border-bottom:1px solid rgba(var(--bg-rgb),0.4);padding-bottom:2px;transition:border-color .2s,color .2s;" style-hover="color:var(--pink);border-color:var(--pink)">stefan.senk@tu-dresden.de</a>
+            </div>
+            <div>
+              <p style="font-size:14.5px;line-height:1.55;color:rgba(var(--bg-rgb),0.7);">For supervision or research collaboration, please contact:</p>
+              <p style="margin-top:8px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--bg);">Hosein Kangavar Nazari</p>
+              <a href="mailto:hosein.kangavar_nazari@tu-dresden.de" style="margin-top:3px;display:inline-block;font-family:IBM Plex Sans;font-weight:200;font-size:clamp(14px,1.6vw,18px);color:#83cbf9;border-bottom:1px solid rgba(var(--bg-rgb),0.4);padding-bottom:2px;transition:border-color .2s,color .2s;" style-hover="color:var(--pink);border-color:var(--pink)">hosein.kangavar_nazari@tu-dresden.de</a>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);">Find us</h4>
+          <address style="margin-top:18px;font-style:normal;font-size:16px;line-height:1.75;color:rgba(var(--bg-rgb),0.85);">
+            TU Dresden<br>
+            Deutsche Telekom Professur für Kommunikationsnetze<br>
+            Barkhausenbau, 1. OG<br>
+            Georg-Schumann-Straße 11<br>
+            01187 Dresden
+          </address>
+          <div style="margin-top:20px;position:relative;border-radius:8px;overflow:hidden;border:1px solid rgba(var(--bg-rgb),0.18);height:200px;">
+            <iframe title="DCRG location" src="https://www.openstreetmap.org/export/embed.html?bbox=13.71816%2C51.02626%2C13.72816%2C51.03126&amp;layer=mapnik&amp;marker=51.02876%2C13.72316" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(1) contrast(0.92) brightness(0.95);"></iframe>
+            <div style="position:absolute;inset:0;background:var(--blue);mix-blend-mode:color;opacity:0.62;pointer-events:none;"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(var(--ink-rgb),0.08) 0%,rgba(var(--ink-rgb),0.42) 100%);pointer-events:none;"></div>
+            <a href="https://www.openstreetmap.org/?mlat=51.02876&amp;mlon=13.72316#map=17/51.02876/13.72316" target="_blank" rel="noopener" style="position:absolute;right:10px;bottom:10px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--bg);background:rgba(var(--ink-rgb),0.6);padding:5px 10px;border-radius:100px;transition:background .2s;" style-hover="background:var(--pink);color:var(--ink)">Open in map ↗</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:64px;padding-top:24px;border-top:1px solid rgba(var(--bg-rgb),0.15);display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:14px;color:rgba(var(--bg-rgb),0.55);">
+        <span>© 2026 Deterministic Communications Research Group</span>
+        <span>TU Dresden · Deutsche Telekom Chair of Communication Networks</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;bgColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#FFFFFF&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Palette&quot;, &quot;options&quot;: [&quot;#FFF5FD&quot;, &quot;#FFFDEB&quot;, &quot;#FFFFFF&quot;, &quot;#F4F7FB&quot;] },
+  &quot;inkColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#022E57&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Palette&quot;, &quot;options&quot;: [&quot;#022E57&quot;, &quot;#16384a&quot;, &quot;#0B1F33&quot;, &quot;#1A1A2E&quot;] },
+  &quot;blueColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#005A8D&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Palette&quot;, &quot;options&quot;: [&quot;#005A8D&quot;, &quot;#7DAACB&quot;, &quot;#0E7C86&quot;, &quot;#3A5BA0&quot;] },
+  &quot;pinkColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#FF96AD&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Palette&quot;, &quot;options&quot;: [&quot;#FF96AD&quot;, &quot;#CE2626&quot;, &quot;#F2A65A&quot;, &quot;#9B6DD6&quot;] },
+  &quot;networkEnergy&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Calm&quot;, &quot;Medium&quot;, &quot;Dynamic&quot;], &quot;default&quot;: &quot;Calm&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Network background&quot; },
+  &quot;cursorLinks&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Network background&quot; },
+  &quot;showFooterLogo&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Footer&quot; }
+}">
+class Component extends DCLogic {
+  hexToRgb(hex) {
+    const h = (hex || '').replace('#', '').trim();
+    if (h.length !== 6) return null;
+    const n = parseInt(h, 16);
+    return ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255);
+  }
+
+  applyTheme() {
+    const root = document.documentElement;
+    const set = (name, hex) => {
+      if (!hex) return;
+      root.style.setProperty('--' + name, hex);
+      const rgb = this.hexToRgb(hex);
+      if (rgb) root.style.setProperty('--' + name + '-rgb', rgb);
+    };
+    set('bg', this.props.bgColor || '#FFF5FD');
+    set('ink', this.props.inkColor || '#022E57');
+    set('blue', this.props.blueColor || '#005A8D');
+    set('pink', this.props.pinkColor || '#FF96AD');
+  }
+
+  initProjects() {
+    document.querySelectorAll('details[data-proj]').forEach((d) => {
+      d.addEventListener('toggle', () => {
+        const plus = d.querySelector('[data-plus]');
+        if (plus) plus.textContent = d.open ? '–' : '+';
+        d.style.boxShadow = d.open ? '0 18px 44px -22px rgba(var(--ink-rgb),0.5)' : 'none';
+        d.style.gridColumn = d.open ? '1 / -1' : '';
+      });
+    });
+  }
+
+  initTabs() {
+    const tabs = document.getElementById('tp-tabs');
+    if (!tabs) return;
+    const btns = Array.from(tabs.querySelectorAll('[data-tptab]'));
+    const panels = { theses: document.getElementById('tab-theses'), pubs: document.getElementById('tab-pubs') };
+    const select = (key) => {
+      Object.keys(panels).forEach((k) => { if (panels[k]) panels[k].style.display = (k === key) ? '' : 'none'; });
+      btns.forEach((b) => {
+        const on = b.getAttribute('data-tptab') === key;
+        b.style.color = on ? 'var(--ink)' : 'var(--muted)';
+        b.style.borderBottom = on ? '2px solid var(--blue)' : '2px solid transparent';
+      });
+    };
+    btns.forEach((b) => b.addEventListener('click', () => select(b.getAttribute('data-tptab'))));
+    select('theses');
+  }
+
+  initPubs() {
+    const list = document.getElementById('pubs-list');
+    if (!list) return;
+    const data = window.DCRG_PUBLICATIONS;
+    if (!data || !data.length) {
+      this._pubTries = (this._pubTries || 0) + 1;
+      if (this._pubTries < 25) setTimeout(() => this.initPubs(), 120);
+      return;
+    }
+    if (list.dataset.filled) return;
+    list.dataset.filled = '1';
+    const frag = document.createDocumentFragment();
+    data.forEach((p) => {
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex;gap:24px;padding:22px 0;border-top:1px solid rgba(var(--ink-rgb),0.1);flex-wrap:wrap;';
+      const yr = document.createElement('span');
+      yr.style.cssText = "min-width:54px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--blue);padding-top:2px;";
+      yr.textContent = p.year || '';
+      const body = document.createElement('div');
+      body.style.cssText = 'flex:1;min-width:260px;';
+      const href = p.url || ('https://scholar.google.com/scholar?q=' + encodeURIComponent(p.title));
+      const title = document.createElement('a');
+      title.href = href; title.target = '_blank'; title.rel = 'noopener';
+      title.style.cssText = 'font-size:17px;line-height:1.4;font-weight:600;color:var(--ink);';
+      title.textContent = p.title;
+      if (p.type) {
+        const tag = document.createElement('span');
+        tag.style.cssText = 'margin-left:10px;display:inline-block;vertical-align:middle;font-family:\'Space Grotesk\',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--blue);background:rgba(var(--blue-rgb),0.12);padding:2px 8px;border-radius:100px;';
+        tag.textContent = p.type;
+        title.appendChild(tag);
+      }
+      if (!p.url) {
+        const sch = document.createElement('span');
+        sch.style.cssText = 'margin-left:8px;font-size:13px;font-weight:500;color:var(--muted);';
+        sch.textContent = '· Google Scholar ↗';
+        title.appendChild(sch);
+      }
+      const auth = document.createElement('div');
+      auth.style.cssText = 'margin-top:5px;font-size:14px;line-height:1.5;color:var(--muted);';
+      auth.textContent = p.authors;
+      body.appendChild(title);
+      body.appendChild(auth);
+      if (p.bookChapter) {
+        const ch = document.createElement('div');
+        ch.style.cssText = 'margin-top:6px;font-size:13px;line-height:1.45;color:var(--muted);font-style:italic;';
+        ch.textContent = 'Chapter in “' + p.bookChapter + '”';
+        body.appendChild(ch);
+      }
+      row.appendChild(yr);
+      row.appendChild(body);
+      frag.appendChild(row);
+    });
+    list.appendChild(frag);
+  }
+
+  initCarousel() {
+    const track = document.getElementById('demo-track');
+    if (!track) return;
+    const count = track.children.length;
+    const slides = Array.from(track.children);
+    const dotsWrap = document.getElementById('demo-dots');
+    const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
+    let cur = 0;
+    const go = (i) => {
+      cur = (i + count) % count;
+      slides.forEach((s, k) => {
+        s.style.opacity = k === cur ? '1' : '0';
+        s.style.zIndex = k === cur ? '1' : '0';
+        s.style.pointerEvents = k === cur ? 'auto' : 'none';
+      });
+      dots.forEach((d, k) => { d.style.background = k === cur ? 'var(--ink)' : 'rgba(var(--ink-rgb),0.22)'; });
+    };
+    const next = () => go(cur + 1);
+    const prev = () => go(cur - 1);
+    let timer = null;
+    const start = () => { timer = setInterval(next, 5000); };
+    const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+    const restart = () => { stop(); start(); };
+    this._carStop = stop;
+    const nextBtn = document.getElementById('demo-next');
+    const prevBtn = document.getElementById('demo-prev');
+    const setArrows = (v) => { if (nextBtn) nextBtn.style.opacity = v; if (prevBtn) prevBtn.style.opacity = v; };
+    if (nextBtn) nextBtn.addEventListener('click', () => { next(); restart(); });
+    if (prevBtn) prevBtn.addEventListener('click', () => { prev(); restart(); });
+    dots.forEach((d, k) => d.addEventListener('click', () => { go(k); restart(); }));
+    const vp = document.getElementById('demo-viewport');
+    if (vp) {
+      vp.addEventListener('mouseenter', () => { stop(); setArrows('1'); });
+      vp.addEventListener('mouseleave', () => { start(); setArrows('0'); });
+    }
+    go(0);
+    start();
+  }
+
+  componentDidMount() {
+    this.applyTheme();
+    this.initCarousel();
+    this.initProjects();
+    this.initTabs();
+    this.initPubs();
+    this._researchEl = document.getElementById('research');
+    this._approachEl = document.getElementById('approach');
+    this._aboutEl = document.getElementById('about');
+    this._projectsEl = document.getElementById('projects');
+    const canvas = document.getElementById('net-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, dpr, nodes = [];
+    const mouse = { x: -9999, y: -9999 };
+
+    const LINK_DIST = 150;
+    const MOUSE_DIST = 200;
+
+    const resize = () => {
+      const energy = this.props.networkEnergy || 'Medium';
+      const speed = energy === 'Calm' ? 0.3 : energy === 'Dynamic' ? 0.95 : 0.55;
+      const cs = getComputedStyle(document.body);
+      this._blueRGB = (cs.getPropertyValue('--blue-rgb') || '0,90,141').trim();
+      this._pinkRGB = (cs.getPropertyValue('--pink-rgb') || '255,150,173').trim();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.clientWidth;
+      h = canvas.clientHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const target = Math.round((w * h) / 13000);
+      const count = Math.max(48, Math.min(120, target));
+      nodes = [];
+      for (let i = 0; i < count; i++) {
+        nodes.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * speed,
+          vy: (Math.random() - 0.5) * speed,
+          r: Math.random() * 1.8 + 1.4,
+          sand: Math.random() < 0.14
+        });
+      }
+      // Clock time-sync silhouette — one centered clock (research) that
+      // splits into two synced clocks (approach). Roles assigned here;
+      // actual positions are computed per-frame in draw().
+      const r = Math.min(w, h) * 0.15;
+      this._clockR = r;
+      this._fullSep = Math.min(Math.max(380, w * 0.46), w - 2 * r - 48);
+      const M = 12;
+      const specs = [];
+      [0, 1].forEach((ci) => {
+        specs.push({ kind: 'center', clock: ci });
+        for (let i = 0; i < M; i++) { const a = (i / M) * Math.PI * 2 - Math.PI / 2; specs.push({ kind: 'ring', clock: ci, ringA: a }); }
+        specs.push({ kind: 'hand', clock: ci, hand: 'm', frac: 0.40 });
+        specs.push({ kind: 'hand', clock: ci, hand: 'm', frac: 0.72 });
+        specs.push({ kind: 'hand', clock: ci, hand: 'h', frac: 0.28 });
+        specs.push({ kind: 'hand', clock: ci, hand: 'h', frac: 0.50 });
+      });
+      const Lcount = Math.max(2, Math.round((this._fullSep - 2 * r) / 80));
+      for (let i = 1; i < Lcount; i++) { specs.push({ kind: 'link', linkT: i / Lcount }); }
+      // Star-of-figures roles (About section): a central hub plus F little
+      // people figures, each a few nodes, connected back to the hub.
+      const F = 6;
+      this._starF = F;
+      const figOff = { head: [0, -16], body: [0, 2], armL: [-13, -3], armR: [13, -3], base: [0, 17] };
+      const starSpecs = [{ sKind: 'hub' }];
+      for (let k = 0; k < F; k++) {
+        ['head', 'body', 'armL', 'armR', 'base'].forEach((part) => starSpecs.push({ sKind: part, sFig: k, sox: figOff[part][0], soy: figOff[part][1] }));
+      }
+      // Industry scene roles (Projects section): a moving AGV, two
+      // collaborating robotic arms, and a hovering drone. Positions are
+      // animated per-frame in draw().
+      const indSpecs = [];
+      ['bl', 'br', 'tr', 'tl', 'wl', 'wr'].forEach((part) => indSpecs.push({ iKind: 'agv', iPart: part }));
+      [0, 1].forEach((arm) => [0, 1, 2, 3].forEach((j) => indSpecs.push({ iKind: 'arm', iArm: arm, iJoint: j })));
+      indSpecs.push({ iKind: 'drone', iPart: 'center' });
+      [0, 1, 2, 3].forEach((t) => indSpecs.push({ iKind: 'drone', iPart: 'rotor', iRotor: t }));
+      for (let i = 0; i < nodes.length; i++) {
+        const s = specs[i];
+        if (s) { nodes[i].shape = true; nodes[i].kind = s.kind; nodes[i].clock = s.clock; nodes[i].ringA = s.ringA; nodes[i].hand = s.hand; nodes[i].frac = s.frac; nodes[i].linkT = s.linkT; }
+        else { nodes[i].shape = false; nodes[i].kind = null; }
+        const ss = starSpecs[i];
+        if (ss) { nodes[i].sShape = true; nodes[i].sKind = ss.sKind; nodes[i].sFig = ss.sFig; nodes[i].sox = ss.sox; nodes[i].soy = ss.soy; }
+        else { nodes[i].sShape = false; nodes[i].sKind = null; }
+        const is = indSpecs[i];
+        if (is) { nodes[i].iShape = true; nodes[i].iKind = is.iKind; nodes[i].iPart = is.iPart; nodes[i].iArm = is.iArm; nodes[i].iJoint = is.iJoint; nodes[i].iRotor = is.iRotor; }
+        else { nodes[i].iShape = false; nodes[i].iKind = null; }
+      }
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      const now = performance.now();
+      const cen = (el) => { if (!el) return 0; const rr = el.getBoundingClientRect(); const c = rr.top + rr.height / 2; return Math.max(0, 1 - Math.abs(c - h / 2) / (h * 0.9)); };
+      const pR = cen(this._researchEl);
+      const pA = cen(this._approachEl);
+      const pAboutRaw = cen(this._aboutEl);
+      const pProj = cen(this._projectsEl);
+      let pClock = Math.max(pR, pA);
+      let pAbout = pAboutRaw;
+      let two = Math.max(0, Math.min(1, pA));       // 0 = one clock, 1 = two clocks
+      let mode = 'clock';
+      let p = pClock;
+      if (pAbout > p) { mode = 'star'; p = pAbout; }
+      if (pProj > p) { mode = 'industry'; p = pProj; }
+      const starMode = mode === 'star';
+      const industryMode = mode === 'industry';
+      this._p = p;
+      this._two = two;
+      this._star = starMode ? pAbout : 0;
+      this._industry = industryMode ? pProj : 0;
+      const cr = this._clockR || (Math.min(w, h) * 0.15);
+      const cyc = h * 0.5;
+      const sep = two * (this._fullSep || 0);
+      const cx1 = w / 2 - sep / 2, cx2 = w / 2 + sep / 2;
+      const clockX = (clock) => (clock === 0 ? cx1 : cx2);
+      const A = now * 0.0006;
+      const off = two * (1 - pA) * Math.PI;            // out of phase → synced as section centers
+      const handAngle = (clock, hand) => { const base = clock === 0 ? A : (A + off); return hand === 'm' ? base : base * 0.55; };
+      const gapL = cx1 + cr, gapSpan = Math.max(1, (cx2 - cr) - gapL);
+      const linkLive = two > 0.08;
+      // star geometry (About section)
+      const hubx = w / 2, huby = cyc;
+      const SF = this._starF || 6;
+      const RS = Math.min(w, h) * 0.28;
+      const figRot = now * 0.00012;
+      const figC = (k) => { const a = (k / SF) * Math.PI * 2 - Math.PI / 2 + figRot; return [hubx + Math.cos(a) * RS, huby + Math.sin(a) * RS]; };
+      // industry geometry (Projects section): moving AGV, collaborating arms, hovering drone
+      const S = Math.min(w, h) * 0.05;
+      const baseY = cyc;
+      const agvX = w * 0.25 + Math.sin(now * 0.0007) * (w * 0.05);
+      const agvCorners = { tl: [-1.7, -0.9], tr: [1.7, -0.9], br: [1.7, 0.4], bl: [-1.7, 0.4], wl: [-1.0, 1.0], wr: [1.0, 1.0] };
+      const agvPos = (part) => { const c = agvCorners[part]; return [agvX + c[0] * S, baseY + c[1] * S]; };
+      const armCx = w * 0.5, armBaseY = baseY + 1.8 * S;
+      const wpY = baseY + 0.35 * S + Math.sin(now * 0.0016) * 0.25 * S;
+      const armJoints = (arm) => {
+        const s = arm === 0 ? -1 : 1;
+        const base = [armCx + s * 2.4 * S, armBaseY];
+        const L1 = 1.45 * S, L2 = 1.2 * S;
+        const target = [armCx + s * 0.55 * S, wpY];
+        let dx = target[0] - base[0], dy = target[1] - base[1];
+        let dist = Math.hypot(dx, dy);
+        const minR = Math.abs(L1 - L2) + 1, maxR = L1 + L2 - 1;
+        dist = Math.max(minR, Math.min(maxR, dist));
+        const a = Math.atan2(dy, dx);
+        let cosA = (dist * dist + L1 * L1 - L2 * L2) / (2 * L1 * dist);
+        cosA = Math.max(-1, Math.min(1, cosA));
+        const shAng = a - s * Math.acos(cosA);
+        const elbow = [base[0] + Math.cos(shAng) * L1, base[1] + Math.sin(shAng) * L1];
+        const wrist = [base[0] + Math.cos(a) * dist, base[1] + Math.sin(a) * dist];
+        const wAng = Math.atan2(wrist[1] - elbow[1], wrist[0] - elbow[0]);
+        const tool = [wrist[0] + Math.cos(wAng) * 0.45 * S, wrist[1] + Math.sin(wAng) * 0.45 * S];
+        return [base, elbow, wrist, tool];
+      };
+      const droneCenter = [w * 0.75, baseY - 1.0 * S + Math.sin(now * 0.0016) * 0.5 * S];
+      const rotorOff = [[-1.5, -1.0], [1.5, -1.0], [1.5, 1.0], [-1.5, 1.0]];
+      const dronePos = (part, idx) => part === 'center' ? droneCenter : [droneCenter[0] + rotorOff[idx][0] * S, droneCenter[1] + rotorOff[idx][1] * S];
+      const industryTarget = (n) => {
+        if (n.iKind === 'agv') return agvPos(n.iPart);
+        if (n.iKind === 'arm') return armJoints(n.iArm)[n.iJoint];
+        return dronePos(n.iPart, n.iRotor);
+      };
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        const active = industryMode ? n.iShape : (starMode ? n.sShape : (n.shape && (n.kind !== 'link' || linkLive)));
+        n._active = active;
+        if (active && p > 0.001) {
+          let tx, ty;
+          if (industryMode) {
+            const t = industryTarget(n); tx = t[0]; ty = t[1];
+          } else if (starMode) {
+            if (n.sKind === 'hub') { tx = hubx; ty = huby; }
+            else { const c = figC(n.sFig); tx = c[0] + n.sox; ty = c[1] + n.soy; }
+          } else {
+            const cxv = clockX(n.clock);
+            if (n.kind === 'center') { tx = cxv; ty = cyc; }
+            else if (n.kind === 'ring') { tx = cxv + Math.cos(n.ringA) * cr; ty = cyc + Math.sin(n.ringA) * cr; }
+            else if (n.kind === 'hand') {
+              const ang = handAngle(n.clock, n.hand);
+              tx = cxv + Math.cos(ang) * n.frac * cr;
+              ty = cyc + Math.sin(ang) * n.frac * cr;
+            } else { tx = gapL + gapSpan * n.linkT; ty = cyc; }
+          }
+          n.x += n.vx * (1 - p);
+          n.y += n.vy * (1 - p);
+          n.x += (tx - n.x) * 0.07 * p;
+          n.y += (ty - n.y) * 0.07 * p;
+        } else {
+          n.x += n.vx; n.y += n.vy;
+          if (n.x < 0 || n.x > w) n.vx *= -1;
+          if (n.y < 0 || n.y > h) n.vy *= -1;
+          n.x = Math.max(0, Math.min(w, n.x));
+          n.y = Math.max(0, Math.min(h, n.y));
+        }
+      }
+      // industry scene: explicit structure lines (AGV, arms, drone)
+      if (this._industry > 0.001) {
+        const ia = this._industry;
+        const blue = (al) => 'rgba(' + this._blueRGB + ',' + Math.max(0, al).toFixed(3) + ')';
+        const pink = (al) => 'rgba(' + this._pinkRGB + ',' + Math.max(0, al).toFixed(3) + ')';
+        ctx.lineWidth = 1.2;
+        // AGV body + wheels
+        const tl = agvPos('tl'), tr = agvPos('tr'), br = agvPos('br'), bl = agvPos('bl'), wl = agvPos('wl'), wr = agvPos('wr');
+        ctx.strokeStyle = blue(0.8 * ia);
+        ctx.beginPath(); ctx.moveTo(tl[0], tl[1]); ctx.lineTo(tr[0], tr[1]); ctx.lineTo(br[0], br[1]); ctx.lineTo(bl[0], bl[1]); ctx.closePath(); ctx.stroke();
+        [[bl, wl], [br, wr]].forEach((pair) => {
+          ctx.beginPath(); ctx.moveTo(pair[0][0], pair[0][1]); ctx.lineTo(pair[1][0], pair[1][1]); ctx.stroke();
+          ctx.beginPath(); ctx.arc(pair[1][0], pair[1][1], S * 0.32, 0, Math.PI * 2); ctx.stroke();
+        });
+        // robotic arms (pedestal, jointed links, gripper)
+        [0, 1].forEach((arm) => {
+          const J = armJoints(arm);
+          const base = J[0], elbow = J[1], wrist = J[2], tool = J[3];
+          ctx.strokeStyle = blue(0.78 * ia);
+          ctx.lineWidth = 2.4;
+          // pedestal: base block + post
+          ctx.beginPath(); ctx.moveTo(base[0] - 0.55 * S, base[1] + 0.85 * S); ctx.lineTo(base[0] + 0.55 * S, base[1] + 0.85 * S); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(base[0], base[1] + 0.85 * S); ctx.lineTo(base[0], base[1]); ctx.stroke();
+          // upper arm + forearm
+          ctx.beginPath(); ctx.moveTo(base[0], base[1]); ctx.lineTo(elbow[0], elbow[1]); ctx.lineTo(wrist[0], wrist[1]); ctx.stroke();
+          // joint hubs
+          [base, elbow, wrist].forEach((jp) => { ctx.fillStyle = blue(0.9 * ia); ctx.beginPath(); ctx.arc(jp[0], jp[1], S * 0.17, 0, Math.PI * 2); ctx.fill(); });
+          // gripper
+          const gAng = Math.atan2(tool[1] - wrist[1], tool[0] - wrist[0]);
+          const perp = gAng + Math.PI / 2;
+          const open = 0.12 * S + (0.5 + 0.5 * Math.sin(now * 0.004)) * 0.26 * S;
+          ctx.lineWidth = 2;
+          [-1, 1].forEach((d) => {
+            const rx = wrist[0] + Math.cos(perp) * open * d * 0.6, ry = wrist[1] + Math.sin(perp) * open * d * 0.6;
+            const px = tool[0] + Math.cos(perp) * open * d, py = tool[1] + Math.sin(perp) * open * d;
+            const tx = px + Math.cos(gAng) * 0.32 * S, ty = py + Math.sin(gAng) * 0.32 * S;
+            ctx.beginPath(); ctx.moveTo(rx, ry); ctx.lineTo(px, py); ctx.lineTo(tx, ty); ctx.stroke();
+          });
+        });
+        // shared workpiece + collaboration link
+        const t0 = armJoints(0)[3], t1 = armJoints(1)[3];
+        const pulse = 0.5 + 0.5 * Math.sin(now * 0.005);
+        ctx.lineWidth = 1.4;
+        ctx.strokeStyle = pink(Math.min(0.9, (0.35 + 0.65 * pulse) * ia));
+        ctx.beginPath(); ctx.moveTo(t0[0], t0[1]); ctx.lineTo(t1[0], t1[1]); ctx.stroke();
+        const wpx = (t0[0] + t1[0]) / 2, wpy = (t0[1] + t1[1]) / 2;
+        ctx.strokeStyle = pink(0.75 * ia);
+        ctx.lineWidth = 1.6;
+        ctx.strokeRect(wpx - 0.4 * S, wpy - 0.4 * S, 0.8 * S, 0.8 * S);
+        // drone
+        const dc = droneCenter;
+        ctx.lineWidth = 1.2;
+        for (let t = 0; t < 4; t++) {
+          const rp = dronePos('rotor', t);
+          ctx.strokeStyle = blue(0.8 * ia);
+          ctx.beginPath(); ctx.moveTo(dc[0], dc[1]); ctx.lineTo(rp[0], rp[1]); ctx.stroke();
+          const spin = now * 0.02 + t * 1.6;
+          ctx.strokeStyle = blue(0.6 * ia);
+          ctx.beginPath(); ctx.arc(rp[0], rp[1], S * 0.5, spin, spin + Math.PI * 1.5); ctx.stroke();
+        }
+      }
+      // star spokes: hub → each figure (pink, gently pulsing)
+      if (this._star > 0.001) {
+        const sa = this._star;
+        ctx.lineWidth = 1;
+        for (let k = 0; k < SF; k++) {
+          const c = figC(k);
+          const pulse = 0.55 + 0.45 * Math.sin(now * 0.004 + k * 1.3);
+          ctx.strokeStyle = 'rgba(' + this._pinkRGB + ',' + (0.55 * sa * pulse).toFixed(3) + ')';
+          ctx.beginPath();
+          ctx.moveTo(hubx, huby);
+          ctx.lineTo(c[0], c[1]);
+          ctx.stroke();
+        }
+      }
+      // node-node links
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          if (industryMode && (a._active || b._active)) continue;
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < LINK_DIST) {
+            const pp = this._p || 0;
+            const aS = a._active, bS = b._active;
+            const wa = aS ? 1 : (1 - 0.85 * pp);
+            const wb = bS ? 1 : (1 - 0.85 * pp);
+            let al = (1 - d / LINK_DIST) * 0.5 * Math.min(wa, wb);
+            let rgb = this._blueRGB;
+            const conn = aS && bS && (a.kind === 'link' || b.kind === 'link');
+            if (conn) {
+              const pulse = 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(now * 0.005));
+              al = Math.min(0.95, (1 - d / LINK_DIST) * (0.3 + 1.0 * pp) * pulse * (this._two || 0));
+              rgb = this._pinkRGB;
+            } else if (aS && bS) {
+              al = Math.min(0.85, al * (1 + 1.4 * pp));
+            }
+            if (al <= 0.004) continue;
+            ctx.strokeStyle = 'rgba(' + rgb + ',' + al.toFixed(3) + ')';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      // mouse links
+      if (this.props.cursorLinks !== false) for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+        const dx = a.x - mouse.x, dy = a.y - mouse.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < MOUSE_DIST) {
+          const al = (1 - d / MOUSE_DIST) * 0.7;
+          ctx.strokeStyle = 'rgba(' + this._pinkRGB + ',' + al.toFixed(3) + ')';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+      // nodes
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        const wtn = n._active ? 1 : (1 - 0.85 * (this._p || 0));
+        const nrgb = (n.kind === 'link' && n._active) ? this._pinkRGB : ((n.sand && !n._active) ? this._pinkRGB : this._blueRGB);
+        ctx.fillStyle = 'rgba(' + nrgb + ',' + (0.9 * wtn).toFixed(3) + ')';
+        ctx.fill();
+      }
+      this._raf = requestAnimationFrame(draw);
+    };
+
+    this._resize = resize;
+    this._move = (e) => { mouse.x = e.clientX; mouse.y = e.clientY; };
+    this._leave = () => { mouse.x = -9999; mouse.y = -9999; };
+    window.addEventListener('resize', this._resize);
+    window.addEventListener('mousemove', this._move);
+    window.addEventListener('mouseout', this._leave);
+    resize();
+    draw();
+  }
+
+  componentDidUpdate(prev) {
+    const colorChanged = prev && (prev.bgColor !== this.props.bgColor || prev.inkColor !== this.props.inkColor || prev.blueColor !== this.props.blueColor || prev.pinkColor !== this.props.pinkColor);
+    if (colorChanged) this.applyTheme();
+    if (prev && (prev.networkEnergy !== this.props.networkEnergy || colorChanged) && this._resize) {
+      this._resize();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._carStop) this._carStop();
+    cancelAnimationFrame(this._raf);
+    window.removeEventListener('resize', this._resize);
+    window.removeEventListener('mousemove', this._move);
+    window.removeEventListener('mouseout', this._leave);
+  }
+
+  renderVals() {
+    return { showFooterLogo: this.props.showFooterLogo ?? true };
+  }
+}
+</script>
+</body>
+</html>
