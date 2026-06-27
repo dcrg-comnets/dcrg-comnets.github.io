@@ -28,6 +28,34 @@
     a{color:inherit;text-decoration:none;}
     @keyframes dcrgPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.7);}}
     @keyframes dcrgFadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+    /* ===== Responsive / mobile ===== */
+    @media (max-width:900px){
+      html{zoom:1 !important;}
+      /* Header → logo row + full-width scrollable nav */
+      header{flex-wrap:wrap !important;padding:12px 20px !important;gap:10px 14px !important;}
+      header > a:first-child img{height:52px !important;width:auto !important;}
+      #site-nav{order:3;width:100%;gap:18px !important;font-size:14px !important;
+        flex-wrap:nowrap;white-space:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;
+        padding-bottom:2px;scrollbar-width:none;}
+      #site-nav::-webkit-scrollbar{display:none;}
+      #site-nav a{flex:0 0 auto;}
+      /* Section padding */
+      section, footer{padding-left:22px !important;padding-right:22px !important;}
+      section{padding-top:64px !important;padding-bottom:64px !important;}
+      #top{padding-top:0 !important;padding-bottom:0 !important;min-height:auto !important;}
+      /* Hero: drop fixed width/height */
+      #hero-inner{width:100% !important;height:auto !important;padding:56px 0 64px !important;}
+      /* Collapse fixed two-column grids */
+      #approach-grid{grid-template-columns:1fr !important;gap:34px !important;}
+      #footer-grid{grid-template-columns:1fr !important;gap:40px !important;}
+      #footer-left{width:100% !important;}
+      footer#contact{padding-top:60px !important;}
+    }
+    @media (max-width:480px){
+      section, footer{padding-left:16px !important;padding-right:16px !important;}
+      section{padding-top:52px !important;padding-bottom:52px !important;}
+    }
   </style>
   <script src="image-slot.js"></script>
   <script src="publications.js"></script>
@@ -41,7 +69,7 @@
     <a href="#top" style="display:flex;align-items:center;gap:14px;">
       
     <img src="assets/logo-dark.svg" alt="DCRG" style="height: 75px; width: 123px; display: block"></a>
-    <nav style="display:flex;align-items:center;gap:38px;font-size:15px;font-weight:500;letter-spacing:0.01em;">
+    <nav id="site-nav" style="display:flex;align-items:center;gap:38px;font-size:15px;font-weight:500;letter-spacing:0.01em;">
       <a href="#research" style="transition:color .2s;" style-hover="color:var(--blue)">Research</a>
       <a href="#approach" style="transition:color .2s;" style-hover="color:var(--blue)">Approach</a>
       <a href="#demos" style="transition:color .2s;" style-hover="color:var(--blue)">Demonstrators</a>
@@ -54,7 +82,7 @@
 
   <section id="top" style="position:relative;min-height:calc(100vh - 79px);display:flex;align-items:center;padding:0 40px;">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(var(--bg-rgb),0.35) 0%,rgba(var(--bg-rgb),0.15) 40%,rgba(var(--bg-rgb),0.85) 100%);pointer-events:none;"></div>
-    <div style="position: relative; max-width: 1180px; margin: 0 auto; width: 1223px; padding: 60px 0; height: 686px">
+    <div id="hero-inner" style="position: relative; max-width: 1180px; margin: 0 auto; width: 1223px; padding: 60px 0; height: 686px">
       
       <h1 style="margin-top:28px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(42px,6.4vw,84px);line-height:1.02;letter-spacing:-0.02em;max-width:16ch;">Prototyping the future of network communication</h1>
       <p style="margin-top:28px;font-size:clamp(17px,1.7vw,21px);line-height:1.6;max-width:60ch;color:var(--muted);">We build experimental setups and testbeds to research, prototype, and evaluate future communication networks in realistic environments — turning emerging network concepts into practical, testable systems.</p>
@@ -94,7 +122,7 @@
   </section>
 
   <section id="approach" style="position:relative;background:color-mix(in srgb, var(--band) 85%, transparent);padding:110px 40px;">
-    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:64px;align-items:start;">
+    <div id="approach-grid" style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:64px;align-items:start;">
       <div>
         <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;">
           <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--blue);font-size:15px;letter-spacing:0.08em;">02</span>
@@ -498,8 +526,8 @@
 
   <footer id="contact" style="position:relative;background:var(--ink);color:var(--bg);padding:80px 40px 48px;">
     <div style="max-width: 1180px; margin: 0 auto; position: relative">
-      <div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:56px;align-items:start;">
-        <div style="width: 693px">
+      <div id="footer-grid" style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:56px;align-items:start;">
+        <div id="footer-left" style="width: 693px">
           <sc-if value="{{ showFooterLogo }}" hint-placeholder-val="{{ true }}">
             <img src="./2025_dcrg_logo_white-mqw7fukt.png" alt="DCRG" style="height:140px;width:auto;display:block;opacity:0.95;">
           </sc-if>

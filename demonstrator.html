@@ -31,6 +31,18 @@
     body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
     ::selection{background:var(--blue);color:var(--bg);}
     a{color:inherit;text-decoration:none;}
+
+    /* ===== Responsive / mobile ===== */
+    @media (max-width:900px){
+      html{zoom:1 !important;}
+      header{padding:14px 20px !important;}
+      section{padding-left:22px !important;padding-right:22px !important;}
+      footer{padding-left:22px !important;padding-right:22px !important;}
+    }
+    @media (max-width:480px){
+      section{padding-left:16px !important;padding-right:16px !important;}
+      header > a:last-child{font-size:13px !important;}
+    }
   </style>
   <script src="image-slot.js"></script>
   <script src="publications.js"></script>
