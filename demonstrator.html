@@ -94,9 +94,37 @@
         <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--blue);font-size:15px;letter-spacing:0.08em;">→</span>
         <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(26px,3.2vw,40px);letter-spacing:-0.02em;">About this demonstration</h2>
       </div>
-      <div style="margin-top:26px;display:grid;gap:18px;max-width:74ch;">
-        <sc-for list="{{ longParas }}" as="para" hint-placeholder-count="3">
-          <p style="font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:var(--ink);">{{ para }}</p>
+      <div style="margin-top:26px;display:grid;gap:20px;max-width:74ch;">
+        <sc-for list="{{ longBlocks }}" as="blk" hint-placeholder-count="3">
+          <sc-if value="{{ blk.isNote }}">
+            <div style="padding:16px 20px;border-left:3px solid var(--pink);background:color-mix(in srgb, var(--pink) 12%, var(--bg));border-radius:0 8px 8px 0;">
+              <p style="font-size:clamp(15px,1.4vw,17px);line-height:1.65;color:var(--ink);"><strong>Work in progress.</strong> {{ blk.text }}</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ blk.isHeading }}">
+            <h3 style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,26px);letter-spacing:-0.01em;color:var(--ink);">{{ blk.text }}</h3>
+          </sc-if>
+          <sc-if value="{{ blk.isPara }}">
+            <p style="font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:var(--ink);">{{ blk.text }}</p>
+          </sc-if>
+          <sc-if value="{{ blk.isList }}">
+            <ul style="margin:0;padding-left:0;list-style:none;display:grid;gap:12px;">
+              <sc-for list="{{ blk.items }}" as="li" hint-placeholder-count="3">
+                <li style="position:relative;padding-left:26px;font-size:clamp(16px,1.5vw,18px);line-height:1.65;color:var(--ink);">
+                  <span style="position:absolute;left:0;top:1px;color:var(--blue);font-weight:700;">›</span>
+                  <strong style="color:var(--ink);">{{ li.label }}</strong> {{ li.text }}
+                </li>
+              </sc-for>
+            </ul>
+          </sc-if>
+          <sc-if value="{{ blk.isRef }}">
+            <sc-if value="{{ blk.refHasUrl }}">
+              <p style="font-size:clamp(15px,1.4vw,17px);line-height:1.6;color:var(--muted);"><a href="{{ blk.refUrl }}" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600;border-bottom:1px solid rgba(var(--blue-rgb),0.35);" style-hover="border-bottom-color:var(--blue)">{{ blk.refText }}</a></p>
+            </sc-if>
+            <sc-if value="{{ blk.refNoUrl }}">
+              <p style="font-size:clamp(15px,1.4vw,17px);line-height:1.6;color:var(--muted);">{{ blk.refText }}</p>
+            </sc-if>
+          </sc-if>
         </sc-for>
       </div>
       <sc-if value="{{ hasGallery }}">
@@ -226,9 +254,9 @@ class Component extends DCLogic {
         'An integrated 5G–TSN demonstrator that delivers end-to-end traffic prioritization across both the wireless and wired domains, validated on a hard real-time control task — balancing inverted pendulums over the network.',
         'Two pendulums are stabilized by LQR controllers on an edge server: one on a fully prioritized slice, the other sharing a slice with best-effort traffic. Under heavy cross-traffic, the prioritized pendulum stays stable while the unprioritized one fails.'
       ] },
-      agv: { num: '05', title: 'Remote AGV', body: [
-        'Remotely controlling an automated guided vehicle across DECT NR, Wi-Fi, and 5G at the same time — studying deterministic, low-latency wireless control for mobile industrial robots.',
-        'Running the same control loop over three radio technologies lets us compare them head-to-head and explore seamless link selection and handover as the vehicle moves.'
+      agv: { num: '05', title: 'Deterministic Wireless AGVs with DECT NR+ and 5G-TSN', body: [
+        'This demonstrator showcases DECT NR+, the world’s first non-cellular 5G technology, as the wireless backbone for a mobile industrial use case: an Automated Guided Vehicle (AGV).',
+        'Building on our 2-Axis Kinematic testbed — which proves PROFINET can be carried over a 5G-TSN link — this setup extends deterministic communication to a continuously moving vehicle, embedding the complete ROS 2/AGV system into a 3GPP-compliant 5G-TSN architecture.'
       ] },
       reliability: { num: '04', title: 'End-to-End Reliability with Application Twin and TSN', body: [
         'A reliability-focused demonstrator combining an application twin with TSN-based communication to evaluate predictable, resilient, and end-to-end reliable service for cyber-physical applications.',
@@ -244,6 +272,43 @@ class Component extends DCLogic {
       ] }
     };
     const LONG = {
+      kinematic: {
+        blocks: [
+          { h: 'Demonstrating PROFINET over 5G-TSN' },
+          { p: 'This demonstrator showcases the integration of Time-Sensitive Networking (TSN) with 5G, proving that a real industrial fieldbus protocol — PROFINET — can be transmitted reliably over a 5G link. Together, 5G’s URLLC capabilities and TSN can provide deterministic, end-to-end connectivity, a key enabler for Industry 4.0.' },
+          { p: 'The 2-axis kinematic (2AK) testbed, developed by Fraunhofer IWU, serves as the physical use case to demonstrate these capabilities. As a simplified robotic arm with two axes, it represents a typical industrial application in a compact form. The goal is not the robot itself, but to show that its wired PROFINET control traffic can be seamlessly carried over 5G-TSN without loss of quality.' },
+          { h: 'Why Determinism Matters' },
+          { p: 'In the control loop, a PLC continuously reads the axis states, calculates new positions, and sends them back. Timing is critical: if a packet arrives too early or too late, the motors accelerate and decelerate unevenly, causing vibrations that can be seen and heard. In a real production line, missed deadlines can even trigger a failure stop — halting operations and causing substantial financial losses. This makes deterministic, jitter-free communication essential.' },
+          { p: 'PROFINET provides exactly this over wired Ethernet, exchanging L2 Ethernet frames in a fixed cycle. In our measurements, the cycle was set to 8 ms to allow direct comparison with a 5G-based setup. Because controller and device send their frames within each cycle window without a strict time correlation, traffic shapers can smooth out network jitter — a technique central to 5G-TSN integration.' },
+          { h: 'The 5G-TSN Challenge' },
+          { p: 'This wired PROFINET performance defines the baseline that a 5G System must reproduce. Delivering it requires precise time synchronization and coordinated traffic shaping across the wireless link, using standards such as IEEE 802.1AS for time synchronization and IEEE 802.1Qbv for traffic scheduling.' },
+          { p: 'A crucial requirement here is the support of Ethernet PDU sessions. Since PROFINET communicates via Layer 2 Ethernet frames rather than IP packets, the 5G System must carry the traffic transparently through Ethernet-type PDU sessions rather than the more common IPv4/IPv6 sessions. To realize this, we work closely together with phine.tech on the OpenAirInterface 5G core network, which provides the Ethernet PDU session support required for Time-Sensitive Networking.' },
+          { p: 'By reproducing the same level of Quality of Service (QoS) that wired fieldbus solutions achieve, this demonstrator proves that 5G-TSN can meet the strict requirements of real industrial automation, opening the door to flexible, wireless factory floors.' },
+          { h: 'Reference' },
+          { ref: 'Stefan — Master’s thesis (Google Scholar)', url: 'https://scholar.google.com/citations?view_op=view_citation&hl=de&user=BomFgSgAAAAJ&citation_for_view=BomFgSgAAAAJ:UebtZRa9Y70C' }
+        ]
+      },
+      agv: {
+        blocks: [
+          { note: 'This demonstrator reflects our current research and integration efforts, which are still under active development and will be extended in the coming months.' },
+          { h: 'The AGV: Götting KATE' },
+          { p: 'As the physical platform, we use a Götting KATE, a compact small AGV that navigates freely along virtual tracks and can be equipped with laser scanners for environment detection. Internally, the AGV relies on a CAN bus for its low-level motor and sensor communication. This CAN traffic is bridged via a Raspberry Pi with a dedicated HAT and published through ROS 2, where it is forwarded to a remote PC (edge computing) running the control nodes off-board. Communication combines DDS — the middleware underlying ROS 2 — with TSN, so the messages benefit both from ROS 2’s flexible publish/subscribe model and from TSN’s deterministic, bounded-latency delivery.' },
+          { h: 'Why DECT NR+?' },
+          { p: 'DECT NR+ is standardized by ETSI (TS 103 636) and ratified by the ITU as part of the IMT-2020 (5G) family, meeting both the URLLC and mMTC service requirements. Several properties make it uniquely suited to this AGV use case:' },
+          { list: [
+            { label: 'Dedicated, clean spectrum:', text: 'It operates in the globally harmonized, protected 1.9 GHz DECT band, avoiding the interference of congested 2.4/5 GHz Wi-Fi bands.' },
+            { label: 'Scheduled, collision-free access:', text: 'A central Fixed Termination Point (FT) allocates dedicated, recurring time slots to each Portable Termination Point (PT), delivering deterministic, predictable latency and solving Listen-Before-Talk problems through coordinated transmission.' },
+            { label: 'Ultra-low latency:', text: 'The physical layer supports sub-millisecond radio latencies, with a receive-to-transmit turnaround of under 14 µs and multiple TX/RX events within a single 10 ms frame.' },
+            { label: 'Microsecond-level jitter:', text: 'Hardware measurements on Nordic nRF9161/nRF9151 boards confirm extremely low Packet-Delay Variation (PDV) at the physical layer.' },
+            { label: 'Seamless handover:', text: 'DECT NR+ maintains an uninterrupted data flow even in fast-moving or continuously mobile applications — perfectly matching the needs of an AGV.' }
+          ] },
+          { h: 'Integration with 5G-TSN' },
+          { p: 'In our architecture, DECT NR+ operates as a secondary Radio Access Technology alongside cellular 5G. The DECT NR+ link is established between the FT and PT, with the FT interfacing to the 5G Core Network (5GC) for seamless TSN traffic forwarding. Non-3GPP access is realized either through the Non-3GPP Inter-Working Function (N3IWF) or the Trusted Non-3GPP Gateway Function (TNGF), which integrates DECT NR+ as trusted non-3GPP access to reduce tunneling overhead. Integration with the TSN domain is handled by TSN Translator (TT) functions, which connect the TSN end stations and provide time synchronization between the TSN and 5G domains as well as traffic shaping via hold-and-forward buffering.' },
+          { p: 'As ongoing work, we are currently establishing precise TSN timing over DECT NR+ and progressing towards a full performance evaluation on real testbeds. The goal is to let the entire ROS 2/AGV system — from the CAN bus on the moving Götting KATE, through DDS and TSN, to the edge PC — operate as a deterministic wireless island within the factory network, demonstrating that DECT NR+ can deliver the strict Quality of Service required on the factory floor.' },
+          { h: 'Reference' },
+          { ref: 'ICCCN 2026 poster paper' }
+        ]
+      },
       pendulum: {
         paras: [
           'Industrial closed-loop control needs ultra-reliable, low-latency communication across both fixed and mobile networks. Combining Time-Sensitive Networking (TSN) with 5G is a promising path, but coordinating prioritization consistently across two very different networks is hard. This demonstrator shows an integrated 5G–TSN solution that prioritizes traffic end to end — using TSN in the wired domain and 5G Quality-of-Service (QoS) mechanisms in the wireless domain.',
@@ -272,6 +337,20 @@ class Component extends DCLogic {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id') || 'kinematic';
     const long = LONG[id];
+    const rawBlocks = long ? (long.blocks || (long.paras || []).map(t => ({ p: t }))) : [];
+    const longBlocks = rawBlocks.map(b => ({
+      isNote: b.note != null,
+      isHeading: b.h != null,
+      isPara: b.p != null,
+      isList: Array.isArray(b.list),
+      isRef: b.ref != null,
+      text: b.note || b.h || b.p || '',
+      items: (b.list || []).map(it => ({ label: it.label || '', text: it.text || '' })),
+      refText: b.ref || '',
+      refUrl: b.url || '',
+      refHasUrl: !!b.url,
+      refNoUrl: !b.url
+    }));
     const d = DATA[id] || DATA.kinematic;
     const videoSrc = VIDEOS[id] || '';
     this._videoSrc = videoSrc;
@@ -307,8 +386,8 @@ class Component extends DCLogic {
       hasVideo: !!videoSrc,
       noVideo: !videoSrc,
       videoCaption: videoSrc ? 'Recorded demonstrator clip.' : 'Demo video — drop a poster frame above, or replace with the recorded clip.',
-      hasLong: !!long,
-      longParas: long ? long.paras : [],
+      hasLong: longBlocks.length > 0,
+      longBlocks,
       hasGallery: !!(long && long.gallery && long.gallery.length),
       gallery: long ? (long.gallery || []) : [],
       pubs,
