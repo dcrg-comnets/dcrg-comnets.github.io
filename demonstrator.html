@@ -107,6 +107,12 @@
           <sc-if value="{{ blk.isPara }}">
             <p style="font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:var(--ink);">{{ blk.text }}</p>
           </sc-if>
+          <sc-if value="{{ blk.isImg }}">
+            <figure style="margin:8px 0;">
+              <div style="width:100%;aspect-ratio:16/9;border-radius:var(--media-radius);border:var(--media-border);background-color:var(--bg);background-image:url({{ blk.imgSrc }});background-size:contain;background-position:center;background-repeat:no-repeat;box-shadow:var(--media-shadow);"></div>
+              <figcaption style="margin-top:10px;font-size:14px;line-height:1.5;color:var(--muted);">{{ blk.text }}</figcaption>
+            </figure>
+          </sc-if>
           <sc-if value="{{ blk.isList }}">
             <ul style="margin:0;padding-left:0;list-style:none;display:grid;gap:12px;">
               <sc-for list="{{ blk.items }}" as="li" hint-placeholder-count="3">
@@ -277,9 +283,12 @@ class Component extends DCLogic {
           { h: 'Demonstrating PROFINET over 5G-TSN' },
           { p: 'This demonstrator showcases the integration of Time-Sensitive Networking (TSN) with 5G, proving that a real industrial fieldbus protocol — PROFINET — can be transmitted reliably over a 5G link. Together, 5G’s URLLC capabilities and TSN can provide deterministic, end-to-end connectivity, a key enabler for Industry 4.0.' },
           { p: 'The 2-axis kinematic (2AK) testbed, developed by Fraunhofer IWU, serves as the physical use case to demonstrate these capabilities. As a simplified robotic arm with two axes, it represents a typical industrial application in a compact form. The goal is not the robot itself, but to show that its wired PROFINET control traffic can be seamlessly carried over 5G-TSN without loss of quality.' },
+          { img: 'assets/2ak-photo.webp', cap: 'The 2-Axis Kinematic (2AK) testbed: the planar kinematic with its two servo-driven axes, Beckhoff drives, PLC/IPC, and fieldbus wiring inside the safety enclosure.' },
+          { img: 'assets/2ak-arch.webp', cap: 'System architecture: a PLC master at the remote site controls the 2-axis planar kinematic at the robot site through a logical 5G-TSN bridge — PROFINET control traffic runs over Ethernet on one side and over the 5G link on the other.' },
           { h: 'Why Determinism Matters' },
           { p: 'In the control loop, a PLC continuously reads the axis states, calculates new positions, and sends them back. Timing is critical: if a packet arrives too early or too late, the motors accelerate and decelerate unevenly, causing vibrations that can be seen and heard. In a real production line, missed deadlines can even trigger a failure stop — halting operations and causing substantial financial losses. This makes deterministic, jitter-free communication essential.' },
           { p: 'PROFINET provides exactly this over wired Ethernet, exchanging L2 Ethernet frames in a fixed cycle. In our measurements, the cycle was set to 8 ms to allow direct comparison with a 5G-based setup. Because controller and device send their frames within each cycle window without a strict time correlation, traffic shapers can smooth out network jitter — a technique central to 5G-TSN integration.' },
+          { img: 'assets/2ak-profinet.webp', cap: 'Measured PROFINET cycle timing over the wired baseline: the CCDF (top) and per-sender distribution (bottom) for the controller and device frames cluster tightly around the 8 ms target, showing the low jitter that a 5G-TSN system must reproduce.' },
           { h: 'The 5G-TSN Challenge' },
           { p: 'This wired PROFINET performance defines the baseline that a 5G System must reproduce. Delivering it requires precise time synchronization and coordinated traffic shaping across the wireless link, using standards such as IEEE 802.1AS for time synchronization and IEEE 802.1Qbv for traffic scheduling.' },
           { p: 'A crucial requirement here is the support of Ethernet PDU sessions. Since PROFINET communicates via Layer 2 Ethernet frames rather than IP packets, the 5G System must carry the traffic transparently through Ethernet-type PDU sessions rather than the more common IPv4/IPv6 sessions. To realize this, we work closely together with phine.tech on the OpenAirInterface 5G core network, which provides the Ethernet PDU session support required for Time-Sensitive Networking.' },
@@ -342,9 +351,11 @@ class Component extends DCLogic {
       isNote: b.note != null,
       isHeading: b.h != null,
       isPara: b.p != null,
+      isImg: b.img != null,
       isList: Array.isArray(b.list),
       isRef: b.ref != null,
-      text: b.note || b.h || b.p || '',
+      text: b.note || b.h || b.p || b.cap || '',
+      imgSrc: b.img || '',
       items: (b.list || []).map(it => ({ label: it.label || '', text: it.text || '' })),
       refText: b.ref || '',
       refUrl: b.url || '',
